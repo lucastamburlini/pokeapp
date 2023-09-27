@@ -8,7 +8,7 @@ const reducer = (state = initialState, action) => {
     switch (action) {
         case ADD_ALL_POKEMONS:
             return {
-                type: ADD_ALL_POKEMONS,
+                ...state,
                 payload: action.payload
             }
 
