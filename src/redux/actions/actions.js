@@ -9,6 +9,6 @@ export const getPokemons = () => {
         dispatch({
             type: ADD_ALL_POKEMONS,
             payload: data
-        })
+        });
     }
 }

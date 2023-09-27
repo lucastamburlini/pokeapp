@@ -5,11 +5,11 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-    switch (action) {
+    switch (action.type) {
         case ADD_ALL_POKEMONS:
             return {
                 ...state,
-                payload: action.payload
+                pokemons: action.payload
             }
 
 
