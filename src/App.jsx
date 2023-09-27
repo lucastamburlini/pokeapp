@@ -1,7 +1,4 @@
-import Detail from "./views/Detail/Detail";
-import Form from "./views/Form/Form";
-import Home from "./views/Home/Home";
-import Landing from "./views/Landing/Landing";
+import { About, Detail, Form, Home, Landing } from "./views";
 import NavBar from "./components/NavBar/NavBar";
 
 import { Routes, Route, useLocation } from "react-router-dom";
@@ -13,11 +10,12 @@ function App() {
 
   return (
     <div className="App">
-      {location.pathname !== "/" && (<NavBar />)}
+      {location.pathname !== "/" && <NavBar />}
 
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/form" element={<Form />} />
       </Routes>
