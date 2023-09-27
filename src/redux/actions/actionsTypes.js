@@ -1,1 +1,2 @@
 export const ADD_ALL_POKEMONS = "ADD_ALL_POKEMONS";
+export const SEARCH_POKEMON = "SEARCH_POKEMON";

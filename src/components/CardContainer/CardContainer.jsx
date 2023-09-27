@@ -3,7 +3,6 @@ import Card from "../Card/Card";
 
 const CardContainer = () => {
   const pokemons = useSelector((state) => state.pokemons);
-  console.log(pokemons);
   return (
     <div>
       {pokemons.map((pokemon) => {

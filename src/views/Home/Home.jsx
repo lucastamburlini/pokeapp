@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getPokemons } from "../../redux/actions/actions";
 import CardContainer from "../../components/CardContainer/CardContainer";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -13,10 +14,8 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Home</h1>
-      <div>
-        <CardContainer />
-      </div>
+      <SearchBar />
+      <CardContainer />
     </div>
   );
 };

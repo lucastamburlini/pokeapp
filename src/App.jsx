@@ -3,13 +3,13 @@ import NavBar from "./components/NavBar/NavBar";
 
 import { Routes, Route, useLocation } from "react-router-dom";
 
-import "./App.module.css";
+import style from "./App.module.css";
 
 function App() {
   const location = useLocation();
 
   return (
-    <div className="App">
+    <div className={style.App}>
       {location.pathname !== "/" && <NavBar />}
 
       <Routes>
