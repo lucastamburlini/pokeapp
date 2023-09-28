@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ADD_ALL_POKEMONS, SEARCH_POKEMON } from "./actionsTypes"
+import { ADD_ALL_POKEMONS, DETAIL_POKEMON, SEARCH_POKEMON, TYPES_POKEMONS } from "./actionsTypes"
 
 export const getPokemons = () => {
     return async (dispatch) => {
@@ -34,6 +34,37 @@ export const searchPokemon = (name) => {
             } else {
                 alert("Ocurrió un error al buscar el Pokémon o el nombre no es válido.");
             }
+        }
+    }
+}
+
+export const detailPokemon = (id) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.get(`http://localhost:3001/pokemons/${id}`)
+            const { data } = response;
+            dispatch({
+                type: DETAIL_POKEMON,
+                payload: data
+            })
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+}
+
+export const getTypesPokemons = () => {
+    return async (dispatch) => {
+        try {
+            const response = await axios("http://localhost:3001/types/")
+            const { data } = response
+            dispatch({
+                type: TYPES_POKEMONS,
+                payload: data
+            })
+        } catch (error) {
+            console.error(error);
         }
     }
 }

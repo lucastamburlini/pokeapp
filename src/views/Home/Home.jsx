@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { getPokemons } from "../../redux/actions/actions";
 import CardContainer from "../../components/CardContainer/CardContainer";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import Filters from "../../components/Filters/Filters";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const Home = () => {
   return (
     <div>
       <SearchBar />
+      <Filters/>
       <CardContainer />
     </div>
   );

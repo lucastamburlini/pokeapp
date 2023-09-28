@@ -1,11 +1,13 @@
-import { ADD_ALL_POKEMONS, SEARCH_POKEMON } from "../actions/actionsTypes";
+import { ADD_ALL_POKEMONS, DETAIL_POKEMON, SEARCH_POKEMON, TYPES_POKEMONS } from "../actions/actionsTypes";
 
 const initialState = {
     pokemons: [],
-    copiaPokemons: []
+    copiaPokemons: [],
+    detailPokemon: [],
+    typesPokemons: []
 };
 
-const reducer = (state = initialState, action) => {
+const infoReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_ALL_POKEMONS:
             return {
@@ -27,10 +29,22 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
+        case DETAIL_POKEMON:
+            return {
+                ...state,
+                detailPokemon: action.payload
+            }
+
+        case TYPES_POKEMONS:
+            return {
+                ...state,
+                typesPokemons: action.payload
+            }
+
         default:
             return {
-                ...state
+                ...state,
             }
     }
 }
-export default reducer
+export default infoReducer
