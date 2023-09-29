@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { detailPokemon } from "../../redux/actions/actions";
+import { detailPokemon } from "../../redux/actions/infoActions";
+
 
 const Card = (props) => {
   const navigate = useNavigate();
@@ -13,9 +14,9 @@ const Card = (props) => {
 
   return (
     <div onClick={hanldeNavigate}>
-      <p>{props.id}</p>
       <p>{props.name}</p>
       <img src={props.image} alt={props.name} />
+      <p>Ataque: {props.attack}</p>
       <div>
         {props.types.map((type) => {
           return <p key={type.name}>{type.name}</p>;

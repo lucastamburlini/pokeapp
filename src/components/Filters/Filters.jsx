@@ -1,36 +1,77 @@
 import { useDispatch, useSelector } from "react-redux";
-//import style from "./Filters.module.css";
-import { useEffect } from "react";
-import { getTypesPokemons } from "../../redux/actions/actions";
+import { useEffect, useState } from "react";
+import { getTypesPokemons, setFilters } from "../../redux/actions/infoActions";
 
 const Filters = () => {
-  /* Botones/Opciones para filtrar por tipo, y por si su origen es de la API o de la base de datos (creados por nosotros desde el formulario).
-Botones/Opciones para ordenar tanto ascendentemente como descendentemente los pokemones por orden alfabético y por ataque. */
   const dispatch = useDispatch();
-  const typesPokemons = useSelector((state) => state.info.typesPokemons);
+  const typesPokemons = useSelector((state) => state.typesPokemons);
   useEffect(() => {
     dispatch(getTypesPokemons());
   }, []);
 
-  const filterType = typesPokemons;
-  /* const filterOrigin = [];
-  const filterOrderAsDs = [];
-  const filterOrderAA = []; */
+
+  const typeFilters = typesPokemons;
+  const originFilters = ["Todos", "Base de Datos", "API"];
+  const sortingOrderFilters = [
+    "Ascendente (Nombre)",
+    "Descendente (Nombre)",
+    "Por Ataque (Bajo a Alto)",
+    "Por Ataque (Alto a Bajo)",
+  ];
+
+
+  const handleFilter = (e) => {
+    const filterValue = e.target.value;
+
+    dispatch(setFilters( filterValue))
+  };
 
   return (
     <div>
       <div>
-        {filterType.map((filter) => {
+        {typeFilters.map((filter) => {
+          const capitalizedFilter =
+            filter.charAt(0).toUpperCase() + filter.slice(1);
           return (
-            <button key={filter} value={filter}>
+            <button
+              onClick={handleFilter}
+              key={capitalizedFilter}
+              name="typeFilter"
+              value={capitalizedFilter}
+            >
+              {capitalizedFilter}
+            </button>
+          );
+        })}
+      </div>
+      <div>
+        {originFilters.map((filter) => {
+          return (
+            <button
+              onClick={handleFilter}
+              key={filter}
+              name="originFilter"
+              value={filter}
+            >
               {filter}
             </button>
           );
         })}
       </div>
-      <div></div>
-      <div></div>
-      <div></div>
+      <div>
+        {sortingOrderFilters.map((filter) => {
+          return (
+            <button
+              onClick={handleFilter}
+              key={filter}
+              name="sortingOrderFilter"
+              value={filter}
+            >
+              {filter}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 };

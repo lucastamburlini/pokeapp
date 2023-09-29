@@ -1,5 +1,6 @@
 import axios from "axios"
-import { ADD_ALL_POKEMONS, DETAIL_POKEMON, SEARCH_POKEMON, TYPES_POKEMONS } from "./actionsTypes"
+import { ADD_ALL_POKEMONS, DETAIL_POKEMON, SEARCH_POKEMON, TYPES_POKEMONS, SET_FILTERS } from "./infoActionsTypes"
+
 
 export const getPokemons = () => {
     return async (dispatch) => {
@@ -68,3 +69,11 @@ export const getTypesPokemons = () => {
         }
     }
 }
+
+export const setFilters = (filter) => {
+    return {
+        type: SET_FILTERS,
+        payload: filter
+    }
+}
+

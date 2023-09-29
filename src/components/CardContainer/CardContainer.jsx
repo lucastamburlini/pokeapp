@@ -2,10 +2,15 @@ import { useSelector } from "react-redux";
 import Card from "../Card/Card";
 
 const CardContainer = () => {
-  const pokemons = useSelector((state) => state.info.pokemons);
+  const pokemons = useSelector((state) => state.pokemons);
+  const filteredPokemons = useSelector((state) => state.filteredPokemons);
+  console.log("esto es filtered:", filteredPokemons);
+
+  const displayPokemons = filteredPokemons.length > 0 ? filteredPokemons : pokemons;
+
   return (
     <div>
-      {pokemons.map((pokemon) => {
+      {displayPokemons.map((pokemon) => {
         return (
           <Card
             key={pokemon.id}
@@ -13,6 +18,7 @@ const CardContainer = () => {
             id={pokemon.id}
             image={pokemon.image}
             types={pokemon.types}
+            attack={pokemon.attack}
           />
         );
       })}

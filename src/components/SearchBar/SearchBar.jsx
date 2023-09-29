@@ -1,8 +1,8 @@
 import { useState } from "react";
 import style from "./SearchBar.module.css";
-import { getPokemons, searchPokemon } from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getPokemons, searchPokemon } from "../../redux/actions/infoActions";
 
 const SearchBar = () => {
   const pokemons = useSelector((state) => state.copiaPokemons);
