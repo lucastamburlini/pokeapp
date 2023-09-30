@@ -5,8 +5,6 @@ const CardContainer = () => {
   const pokemons = useSelector((state) => state.pokemons);
   const filteredPokemons = useSelector((state) => state.filteredPokemons);
 
- // console.log("Esto es filteredPokemons en Card", filteredPokemons);
-
   const displayPokemons = filteredPokemons.length > 0 ? filteredPokemons : pokemons;
 
   return (

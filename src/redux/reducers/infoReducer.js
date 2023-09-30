@@ -66,6 +66,8 @@ const infoReducer = (state = initialState, action) => {
                     });
                 }
 
+                console.log("Luego de Origin: ", origin);
+
                 return {
                     ...state,
                     filteredPokemons: [...origin],
@@ -96,19 +98,45 @@ const infoReducer = (state = initialState, action) => {
             }
 
         case TYPE_FILTERS:
-            let arrayTypes = [...state.typesFilter];
-            const types = action.payload;
+            const arrayTypes = [...state.typesFilter];
+            console.log("Seleccionaste: ", arrayTypes);
+            const newType = action.payload;
 
-            if (arrayTypes.includes(types)) {
-                arrayTypes = arrayTypes.filter(type => type !== types);
+            if (arrayTypes.includes(newType)) {
+                const indexToRemove = arrayTypes.indexOf(newType);
+                if (indexToRemove !== -1) {
+                    arrayTypes.splice(indexToRemove, 1);
+                }
             } else {
-                arrayTypes.push(types);
+                if (arrayTypes.length < 2) {
+                    arrayTypes.push(newType);
+                } else {
+                    arrayTypes.shift();
+                    arrayTypes.push(newType);
+                }
+            }
+
+            let filter = [...state.pokemons];
+
+            if (arrayTypes.length === 0) {
+                return {
+                  ...state,
+                  filteredPokemons: [...filter],
+                  typesFilter: [...arrayTypes],
+                };
+            } else if (arrayTypes.length <= 2) {
+                filter = filter.filter(pokemon => {
+                    return arrayTypes.every(type => pokemon.types.some(item => item.name === type));
+                  });
             }
 
             return {
                 ...state,
+                copiaPokemons: [...filter],
+                filteredPokemons: [...filter],
                 typesFilter: [...arrayTypes],
             };
+
 
 
         default:

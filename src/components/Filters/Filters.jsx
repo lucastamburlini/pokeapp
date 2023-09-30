@@ -13,6 +13,7 @@ const Filters = () => {
   useEffect(() => {
     dispatch(getTypesPokemons());
   }, []);
+  
 
   const typeFilters = typesPokemons;
   const originFilters = ["Todos", "Base de Datos", "API"];
@@ -41,7 +42,7 @@ const Filters = () => {
   return (
     <div>
       <div>
-        <button onClick={handleFilterTypes} value={"Todos"}>
+        <button onClick={handleFilterTypes} value={"todos"}>
           Todos
         </button>
         {typeFilters.map((filter) => {
@@ -51,7 +52,7 @@ const Filters = () => {
             <button
               onClick={handleFilterTypes}
               key={capitalizedFilter}
-              value={capitalizedFilter}
+              value={filter}
             >
               {capitalizedFilter}
             </button>
