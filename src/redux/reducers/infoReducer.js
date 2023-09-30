@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { ADD_ALL_POKEMONS, DETAIL_POKEMON, SEARCH_POKEMON, ORIGIN_FILTERS, TYPES_POKEMONS, ORDER_FILTERS, TYPE_FILTERS } from "../actions/infoActionsTypes";
+import { ADD_ALL_POKEMONS, DETAIL_POKEMON, SEARCH_POKEMON, ORIGIN_FILTERS, TYPES_POKEMONS, ORDER_FILTERS, TYPE_FILTERS, CLEAR_FILTERS } from "../actions/infoActionsTypes";
 
 const initialState = {
     pokemons: [],
@@ -48,46 +48,38 @@ const infoReducer = (state = initialState, action) => {
 
 
         case ORIGIN_FILTERS:
-            if (action.payload === "Todos") {
-                return {
-                    ...state,
-                    filteredPokemons: [...state.copiaPokemons],
-                };
-            } else {
-                let origin = [...state.copiaPokemons];
 
-                if (action.payload === "Base de Datos") {
-                    origin = origin.filter((pokemon) => {
-                        return isNaN(pokemon.id);
-                    });
-                } else if (action.payload === "API") {
-                    origin = origin.filter((pokemon) => {
-                        return !isNaN(pokemon.id);
-                    });
-                }
+            let origin = [...state.copiaPokemons];
 
-                console.log("Luego de Origin: ", origin);
-
-                return {
-                    ...state,
-                    filteredPokemons: [...origin],
-                };
+            if (action.payload === "Database") {
+                origin = origin.filter((pokemon) => {
+                    return isNaN(pokemon.id);
+                });
+            } else if (action.payload === "API") {
+                origin = origin.filter((pokemon) => {
+                    return !isNaN(pokemon.id);
+                });
             }
+            return {
+                ...state,
+                filteredPokemons: [...origin],
+            };
+
 
         case ORDER_FILTERS:
             let cp = [...state.copiaPokemons]
             let fp = [...state.filteredPokemons]
 
-            if (action.payload === "Ascendente (Nombre)") {
+            if (action.payload === "Ascending (Name)") {
                 cp.sort((a, b) => (a.name > b.name ? 1 : -1));
                 fp.sort((a, b) => (a.name > b.name ? 1 : -1));
-            } else if (action.payload === "Descendente (Nombre)") {
+            } else if (action.payload === "Descending (Name)") {
                 cp.sort((a, b) => (b.name > a.name ? 1 : -1));
                 fp.sort((a, b) => (b.name > a.name ? 1 : -1));
-            } else if (action.payload === "Por Ataque (Bajo a Alto)") {
+            } else if (action.payload === "By Attack (Low to High)") {
                 cp.sort((a, b) => (a.attack > b.attack ? 1 : -1));
                 fp.sort((a, b) => (a.attack > b.attack ? 1 : -1));
-            } else if (action.payload === "Por Ataque (Alto a Bajo)") {
+            } else if (action.payload === "By Attack (High to Low)") {
                 cp.sort((a, b) => (b.attack > a.attack ? 1 : -1));
                 fp.sort((a, b) => (b.attack > a.attack ? 1 : -1));
             }
@@ -99,7 +91,6 @@ const infoReducer = (state = initialState, action) => {
 
         case TYPE_FILTERS:
             const arrayTypes = [...state.typesFilter];
-            console.log("Seleccionaste: ", arrayTypes);
             const newType = action.payload;
 
             if (arrayTypes.includes(newType)) {
@@ -120,14 +111,14 @@ const infoReducer = (state = initialState, action) => {
 
             if (arrayTypes.length === 0) {
                 return {
-                  ...state,
-                  filteredPokemons: [...filter],
-                  typesFilter: [...arrayTypes],
+                    ...state,
+                    filteredPokemons: [...filter],
+                    typesFilter: [...arrayTypes],
                 };
             } else if (arrayTypes.length <= 2) {
                 filter = filter.filter(pokemon => {
                     return arrayTypes.every(type => pokemon.types.some(item => item.name === type));
-                  });
+                });
             }
 
             return {
@@ -137,6 +128,18 @@ const infoReducer = (state = initialState, action) => {
                 typesFilter: [...arrayTypes],
             };
 
+        case CLEAR_FILTERS:
+            if (action.payload === "clear") {
+                return {
+                    ...state,
+                    copiaPokemons: [...state.pokemons],
+                    filteredPokemons: [],
+                    typesFilter: [],
+                };
+            }
+            return {
+                ...state
+            }
 
 
         default:

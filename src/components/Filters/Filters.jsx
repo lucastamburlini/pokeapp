@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
+  clearFilter,
   getTypesPokemons,
   orderFilter,
   originFilter,
@@ -55,16 +56,15 @@ const Filters = () => {
     dispatch(typeFilter(filterValue));
   };
 
+  const hanldeClearFilter = (e) => {
+    dispatch(clearFilter(e.target.value));
+    setSelectedTypes([]);
+    setSelectedOrigin(null), setSelectedOrder(null);
+  };
+
   return (
     <div>
       <div>
-        <button
-          onClick={handleFilterTypes}
-          value={"todos"}
-          className={selectedTypes.includes("todos") ? styles.selected : ""}
-        >
-          Todos
-        </button>
         {typesPokemons.map((filter) => {
           const capitalizedFilter =
             filter.charAt(0).toUpperCase() + filter.slice(1);
@@ -81,7 +81,7 @@ const Filters = () => {
         })}
       </div>
       <div>
-        {["Todos", "Base de Datos", "API"].map((filter) => {
+        {["All", "Database", "API"].map((filter) => {
           return (
             <button
               onClick={handleFilterOrigin}
@@ -96,10 +96,10 @@ const Filters = () => {
       </div>
       <div>
         {[
-          "Ascendente (Nombre)",
-          "Descendente (Nombre)",
-          "Por Ataque (Bajo a Alto)",
-          "Por Ataque (Alto a Bajo)",
+          "Ascending (Name)",
+          "Descending (Name)",
+          "By Attack (Low to High)",
+          "By Attack (High to Low)",
         ].map((filter) => {
           return (
             <button
@@ -112,6 +112,11 @@ const Filters = () => {
             </button>
           );
         })}
+      </div>
+      <div>
+        <button onClick={hanldeClearFilter} value={"clear"}>
+          Clear
+        </button>
       </div>
     </div>
   );
