@@ -1,4 +1,5 @@
-import { ADD_ALL_POKEMONS, DETAIL_POKEMON, SEARCH_POKEMON, SET_FILTERS, TYPES_POKEMONS } from "../actions/infoActionsTypes";
+/* eslint-disable no-case-declarations */
+import { ADD_ALL_POKEMONS, DETAIL_POKEMON, SEARCH_POKEMON, ORIGIN_FILTERS, TYPES_POKEMONS, ORDER_FILTERS, TYPE_FILTERS } from "../actions/infoActionsTypes";
 
 const initialState = {
     pokemons: [],
@@ -10,14 +11,13 @@ const initialState = {
 
 const infoReducer = (state = initialState, action) => {
 
-    let sorted = [];
-
     switch (action.type) {
         case ADD_ALL_POKEMONS:
             return {
                 ...state,
                 pokemons: action.payload,
-                copiaPokemons: action.payload
+                copiaPokemons: action.payload,
+                filteredPokemons: action.payload
             };
 
         case SEARCH_POKEMON:
@@ -45,43 +45,63 @@ const infoReducer = (state = initialState, action) => {
                 typesPokemons: action.payload
             }
 
-        case SET_FILTERS:
-            let filteredPokemons = [...state.pokemons];
+        case TYPE_FILTERS:
+            let acPayload = action.payload
+            console.log("Action en el reducer",acPayload);
 
-            if (action.payload === "Todos") {
-                sorted = filteredPokemons
-            } else if (action.payload === "Base de Datos") {
-                sorted = filteredPokemons.filter((pokemon) => {
-                    return isNaN(pokemon.id);
-                });
-            } else if (action.payload === "API") {
-                sorted = filteredPokemons.filter((pokemon) => {
-                    return !isNaN(pokemon.id); 
-                });
+            return {
+                ...state
             }
 
 
+        case ORIGIN_FILTERS:
+            if (action.payload === "Todos") {
+                return {
+                    ...state,
+                    filteredPokemons: [...state.copiaPokemons],
+                };
+            } else {
+                let origin = [...state.copiaPokemons];
 
+                if (action.payload === "Base de Datos") {
+                    origin = origin.filter((pokemon) => {
+                        return isNaN(pokemon.id);
+                    });
+                } else if (action.payload === "API") {
+                    origin = origin.filter((pokemon) => {
+                        return !isNaN(pokemon.id);
+                    });
+                }
 
+                return {
+                    ...state,
+                    filteredPokemons: [...origin],
+                };
+            }
 
-
+        case ORDER_FILTERS:
+            let cp = [...state.copiaPokemons]
+            let fp = [...state.filteredPokemons]
 
             if (action.payload === "Ascendente (Nombre)") {
-                sorted = state.filteredPokemons.sort((a, b) => (a.name > b.name ? 1 : -1));
+                cp.sort((a, b) => (a.name > b.name ? 1 : -1));
+                fp.sort((a, b) => (a.name > b.name ? 1 : -1));
             } else if (action.payload === "Descendente (Nombre)") {
-                sorted = state.filteredPokemons.sort((a, b) => (b.name > a.name ? 1 : -1));
+                cp.sort((a, b) => (b.name > a.name ? 1 : -1));
+                fp.sort((a, b) => (b.name > a.name ? 1 : -1));
             } else if (action.payload === "Por Ataque (Bajo a Alto)") {
-                sorted = state.filteredPokemons.sort((a, b) => (a.attack > b.attack ? 1 : -1));
+                cp.sort((a, b) => (a.attack > b.attack ? 1 : -1));
+                fp.sort((a, b) => (a.attack > b.attack ? 1 : -1));
             } else if (action.payload === "Por Ataque (Alto a Bajo)") {
-                sorted = state.filteredPokemons.sort((a, b) => (b.attack > a.attack ? 1 : -1));
+                cp.sort((a, b) => (b.attack > a.attack ? 1 : -1));
+                fp.sort((a, b) => (b.attack > a.attack ? 1 : -1));
             }
-
-
-            console.log("esto es sorted :", sorted);
             return {
                 ...state,
-                filteredPokemons: [...sorted]
-            };
+                copiaPokemons: [...cp],
+                filteredPokemons: [...fp]
+            }
+
 
         default:
             return {

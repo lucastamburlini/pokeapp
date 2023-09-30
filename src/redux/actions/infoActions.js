@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ADD_ALL_POKEMONS, DETAIL_POKEMON, SEARCH_POKEMON, TYPES_POKEMONS, SET_FILTERS } from "./infoActionsTypes"
+import { ADD_ALL_POKEMONS, DETAIL_POKEMON, SEARCH_POKEMON, TYPES_POKEMONS, ORIGIN_FILTERS, ORDER_FILTERS, TYPE_FILTERS } from "./infoActionsTypes"
 
 
 export const getPokemons = () => {
@@ -70,10 +70,22 @@ export const getTypesPokemons = () => {
     }
 }
 
-export const setFilters = (filter) => {
+export const originFilter = (filter) => {
     return {
-        type: SET_FILTERS,
+        type: ORIGIN_FILTERS,
+        payload: filter
+    }
+}
+export const orderFilter = (filter) => {
+    return {
+        type: ORDER_FILTERS,
         payload: filter
     }
 }
 
+export const typeFilter = (filter) => {
+    return {
+        type: TYPE_FILTERS,
+        payload: filter
+    }
+}
