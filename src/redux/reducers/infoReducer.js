@@ -7,6 +7,7 @@ const initialState = {
     detailPokemon: [],
     typesPokemons: [],
     filteredPokemons: [],
+    typesFilter: []
 };
 
 const infoReducer = (state = initialState, action) => {
@@ -43,14 +44,6 @@ const infoReducer = (state = initialState, action) => {
             return {
                 ...state,
                 typesPokemons: action.payload
-            }
-
-        case TYPE_FILTERS:
-            let acPayload = action.payload
-            console.log("Action en el reducer",acPayload);
-
-            return {
-                ...state
             }
 
 
@@ -101,6 +94,21 @@ const infoReducer = (state = initialState, action) => {
                 copiaPokemons: [...cp],
                 filteredPokemons: [...fp]
             }
+
+        case TYPE_FILTERS:
+            let arrayTypes = [...state.typesFilter];
+            const types = action.payload;
+
+            if (arrayTypes.includes(types)) {
+                arrayTypes = arrayTypes.filter(type => type !== types);
+            } else {
+                arrayTypes.push(types);
+            }
+
+            return {
+                ...state,
+                typesFilter: [...arrayTypes],
+            };
 
 
         default:
