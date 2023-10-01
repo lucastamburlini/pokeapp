@@ -30,7 +30,7 @@ const infoReducer = (state = initialState, action) => {
             } else {
                 return {
                     ...state,
-                    pokemons: action.payload
+                    filteredPokemons: action.payload
                 }
             }
 
@@ -67,7 +67,7 @@ const infoReducer = (state = initialState, action) => {
 
 
         case ORDER_FILTERS:
-            let cp = [...state.copiaPokemons]
+            let cp = [...state.pokemons]
             let fp = [...state.filteredPokemons]
 
             if (action.payload === "Ascending (Name)") {

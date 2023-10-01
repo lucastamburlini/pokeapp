@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { getPokemons, searchPokemon } from "../../redux/actions/infoActions";
 
 const SearchBar = () => {
-  const pokemons = useSelector((state) => state.copiaPokemons);
+  const pokemons = useSelector((state) => state.pokemons);
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const SearchBar = () => {
   return (
     <div className={style}>
       <input
-        placeholder="Agregar ID o Nombre"
+        placeholder="Add ID or Name"
         type="text"
         value={name}
         onChange={handleData}
