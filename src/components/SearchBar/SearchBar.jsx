@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { getPokemons, searchPokemon } from "../../redux/actions/infoActions";
 
 const SearchBar = () => {
-  const pokemons = useSelector((state) => state.pokemons);
+  const pokemons = useSelector((state) => state.info.pokemons);
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const navigate = useNavigate();

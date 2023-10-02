@@ -8,9 +8,9 @@ const NavBar = () => {
       <div>PokeApi</div>
       <div>
         <ul>
-          <Link to="/home">Inicio</Link>
-          <Link to="/form">Crear Pokemon</Link>
-          <Link to="/about">Sobre mí</Link>
+          <Link to="/home">Home</Link>
+          <Link to="/createpokemon">Create Pokemon</Link>
+          <Link to="/about">About</Link>
         </ul>
       </div>
     </div>

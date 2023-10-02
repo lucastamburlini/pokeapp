@@ -96,4 +96,3 @@ export const clearFilter = (filter) => {
         payload: filter
     }
 }
-

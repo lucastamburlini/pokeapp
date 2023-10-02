@@ -6,3 +6,4 @@ export const ORIGIN_FILTERS = "ORIGIN_FILTERS";
 export const ORDER_FILTERS = "ORDER_FILTERS";
 export const TYPE_FILTERS = "TYPE_FILTERS";
 export const CLEAR_FILTERS = "CLEAR_FILTERS";
+

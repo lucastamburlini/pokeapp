@@ -2,7 +2,7 @@
 
 import { useSelector } from "react-redux";
 const Detail = () => {
-  const detailPokemon = useSelector((state) => state.detailPokemon);
+  const detailPokemon = useSelector((state) => state.info.detailPokemon);
 
   return (
     <div>

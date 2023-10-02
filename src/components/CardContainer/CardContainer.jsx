@@ -5,8 +5,8 @@ import { useState } from "react";
 const ITEMS_PER_PAGE = 12;
 
 const CardContainer = () => {
-  const pokemons = useSelector((state) => state.pokemons);
-  const filteredPokemons = useSelector((state) => state.filteredPokemons);
+  const pokemons = useSelector((state) => state.info.pokemons);
+  const filteredPokemons = useSelector((state) => state.info.filteredPokemons);
 
   const displayPokemons =
     filteredPokemons.length > 0 ? filteredPokemons : pokemons;
