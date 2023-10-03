@@ -1,11 +1,24 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTypesPokemons } from "../../redux/actions/infoActions";
+import axios from "axios";
+import { validation } from "../../helpers/validation";
 
 const Form = () => {
-  const typesPokemons = useSelector((state) => state.info.typesPokemons);
+  const typesPokemons = useSelector((state) => state.typesPokemons);
   const dispatch = useDispatch();
-  const [data, setData] = useState({
+  const [form, setForm] = useState({
+    name: "",
+    image: "",
+    hp: 1,
+    attack: 1,
+    defense: 1,
+    speed: 1,
+    height: 1,
+    weight: 10,
+    types: [],
+  });
+  const [errors, setErrors] = useState({
     name: "",
     image: "",
     hp: "",
@@ -14,9 +27,11 @@ const Form = () => {
     speed: "",
     height: "",
     weight: "",
-    types: [],
+    types: "",
   });
-  console.log("Esta es la data que se manda al reducer ", data);
+  console.log("Errors: ", errors);
+  const [formError, setFormError] = useState("");
+  console.log("Error data:", formError);
 
   useEffect(() => {
     dispatch(getTypesPokemons());
@@ -24,100 +39,142 @@ const Form = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log("Valor de data ", name);
-    console.log("Valor de value ", value);
 
-    if (name === "primaryType" || name === "secondaryType") {
-      const selectedType = value;
-      const updateTypes = data.types.slice();
-      const indexOfType = updateTypes.indexOf(selectedType);
-
-      if (indexOfType === -1) {
-        updateTypes.push(selectedType);
-      } else {
-        updateTypes.splice(selectedType, 1);
-      }
-
-      setData({
-        ...data,
-        types: updateTypes,
+    if (name === "types") {
+      setForm({
+        ...form,
+        types: [value, form.types[1]],
+      });
+    } else if (name === "secondaryType") {
+      setForm({
+        ...form,
+        types: [form.types[0], value],
       });
     } else {
-      setData({
-        ...data,
+      setForm({
+        ...form,
         [name]: value,
       });
     }
+
+    setErrors(
+      validation({
+        ...form,
+        [name]: value,
+      })
+    );
   };
 
   const handleSubmit = (e) => {
-    e.priventDefault(data);
-    dispatch(data);
+    e.preventDefault();
+
+    for (const key in errors) {
+      if (errors[key]) {
+        setFormError(
+          "Please correct any errors before submitting the form."
+        );
+        return;
+      }
+    }
+
+    axios
+      .post("http://localhost:3001/pokemons/pokemons", form)
+      .then((response) => {
+        console.log("Nuevo Pokémon creado:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error al crear el Pokémon:", error);
+      });
+
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <label type="text">Name</label>
+      <label>Name</label>
       <input
-        type="name"
+        type="text"
         name="name"
         onChange={handleChange}
-        value={data.name}
+        value={form.name}
       />
+      {errors.name && <div>{errors.name}</div>}
 
-      <label type="text">Image</label>
+      <label>Image</label>
       <input
-        type="image"
+        type="text"
         name="image"
         onChange={handleChange}
-        value={data.image}
+        value={form.image}
       />
 
-      <label type="number">HP</label>
-      <input type="hp" name="hp" onChange={handleChange} value={data.hp} />
-
-      <label type="number">Attack</label>
+      <label>HP</label>
       <input
-        type="attack"
-        name="wttack"
+        type="number"
+        name="hp"
         onChange={handleChange}
-        value={data.attack}
+        value={form.hp}
+        min="1"
+        max="255"
       />
+      {errors.hp && <div>{errors.hp}</div>}
 
-      <label type="number">Defense</label>
+      <label>Attack</label>
       <input
-        type="defense"
+        type="number"
+        name="attack"
+        onChange={handleChange}
+        value={form.attack}
+        min="1"
+        max="255"
+      />
+      {errors.attack && <div>{errors.attack}</div>}
+
+      <label>Defense</label>
+      <input
+        type="number"
         name="defense"
         onChange={handleChange}
-        value={data.defense}
+        value={form.defense}
+        min="1"
+        max="255"
       />
+      {errors.defense && <div>{errors.defense}</div>}
 
-      <label type="number">Speed</label>
+      <label>Speed</label>
       <input
-        type="speed"
+        type="numer"
         name="speed"
         onChange={handleChange}
-        value={data.speed}
+        value={form.speed}
+        min="1"
+        max="255"
       />
+      {errors.speed && <div>{errors.speed}</div>}
 
-      <label type="number">Height</label>
+      <label>Height</label>
       <input
-        type="height"
+        type="number"
         name="height"
         onChange={handleChange}
-        value={data.height}
+        value={form.height}
+        min="1"
+        max="255"
       />
+      {errors.height && <div>{errors.height}</div>}
 
-      <label type="number">Weight</label>
+      <label>Weight</label>
       <input
-        type="weight"
+        type="number"
         name="weight"
         onChange={handleChange}
-        value={data.weight}
+        value={form.weight}
+        min="10"
+        max="255"
       />
+      {errors.weight && <div>{errors.weight}</div>}
 
-      <label type="text">Type:</label>
-      <select name="primaryType" onChange={handleChange}>
+      <label>Type:</label>
+      <select name="types" onChange={handleChange}>
         <option value="">Selecciona un tipo</option>
         {typesPokemons.map((type) => (
           <option key={type} value={type}>
@@ -125,9 +182,10 @@ const Form = () => {
           </option>
         ))}
       </select>
+      {errors.types && <div>{errors.types}</div>}
 
       <select name="secondaryType" onChange={handleChange}>
-        <option value="">Selecciona un tipo</option>
+        <option>Selecciona un tipo</option>
         {typesPokemons.map((type) => (
           <option key={type} value={type}>
             {type}
@@ -136,6 +194,7 @@ const Form = () => {
       </select>
 
       <button type="submit">Submit</button>
+      <div>{formError && <div>{formError}</div>}</div>
     </form>
   );
 };

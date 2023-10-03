@@ -1,1 +1,0 @@
-export const CREATE_POKEMON = "CREATE_POKEMON"

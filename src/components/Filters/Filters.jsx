@@ -11,7 +11,7 @@ import styles from "./Filters.module.css";
 
 const Filters = () => {
   const dispatch = useDispatch();
-  const typesPokemons = useSelector((state) => state.info.typesPokemons);
+  const typesPokemons = useSelector((state) => state.typesPokemons);
   useEffect(() => {
     dispatch(getTypesPokemons());
   }, []);
