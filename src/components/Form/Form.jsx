@@ -29,9 +29,6 @@ const Form = () => {
     weight: "",
     types: "",
   });
-  console.log("Errors: ", errors);
-  const [formError, setFormError] = useState("");
-  console.log("Error data:", formError);
 
   useEffect(() => {
     dispatch(getTypesPokemons());
@@ -68,15 +65,6 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    for (const key in errors) {
-      if (errors[key]) {
-        setFormError(
-          "Please correct any errors before submitting the form."
-        );
-        return;
-      }
-    }
-
     axios
       .post("http://localhost:3001/pokemons/pokemons", form)
       .then((response) => {
@@ -85,8 +73,16 @@ const Form = () => {
       .catch((error) => {
         console.error("Error al crear el Pokémon:", error);
       });
-
   };
+
+  
+  let hasErrors = false;
+  for (const key in errors) {
+    if (errors[key]) {
+      hasErrors = true;
+      break;
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -193,8 +189,9 @@ const Form = () => {
         ))}
       </select>
 
-      <button type="submit">Submit</button>
-      <div>{formError && <div>{formError}</div>}</div>
+      <button disabled={hasErrors} type="submit">
+        Submit
+      </button>
     </form>
   );
 };

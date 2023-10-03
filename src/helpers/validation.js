@@ -36,7 +36,6 @@ export const validation = (props) => {
         errors.weight = "The weight value must be in the range of 1 to 255."
     }
 
-
     if (props.types[0] === "" || props.types[0] === undefined) {
         errors.types = "Primary type is required.";
     }
