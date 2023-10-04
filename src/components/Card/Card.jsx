@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { detailPokemon } from "../../redux/actions/infoActions";
 
+import style from './Card.module.css'
 
 const Card = (props) => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const Card = (props) => {
   };
 
   return (
-    <div onClick={hanldeNavigate}>
+    <div onClick={hanldeNavigate} className={style.cardContainer}>
       <p>{props.name}</p>
       <img src={props.image} alt={props.name} />
       <p>Ataque: {props.attack}</p>

@@ -1,19 +1,23 @@
-import style from "./NavBar.module.css";
+import imgSource from "../../assets/pokeapi.png";
 
 import { Link } from "react-router-dom";
+import style from "./NavBar.module.css";
 
 const NavBar = () => {
   return (
-    <div className={style.navbarContainer}>
-      <div>PokeApi</div>
-      <div>
-        <ul>
-          <Link to="/home">Home</Link>
-          <Link to="/createpokemon">Create Pokemon</Link>
-          <Link to="/about">About</Link>
-        </ul>
+    <nav>
+      <div className={style.navbarContainer}>
+        <div>
+          <img src={imgSource} alt="PokeApi" />
+        </div>
+        <div>
+          <ul>
+            <Link to="/home">Home</Link>
+            <Link to="/createpokemon">Create Pokemon</Link>
+          </ul>
+        </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

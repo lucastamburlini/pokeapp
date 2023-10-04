@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import Card from "../Card/Card";
 import { useState } from "react";
 
+import style from "./CardContainer.module.css";
+
 const ITEMS_PER_PAGE = 12;
 
 const CardContainer = () => {
@@ -47,7 +49,7 @@ const CardContainer = () => {
           Next
         </button>
       </div>
-      <div>
+      <div className={style.cardContainer}>
         {currentItems.map((pokemon) => (
           <Card
             key={pokemon.id}

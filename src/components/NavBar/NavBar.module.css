@@ -1,4 +1,33 @@
-.navbarContainer {
+nav {
+  width: 100%;
+  background-color: var(--color-accent);
   display: flex;
-  background-color: aquamarine;
+  justify-content: center;
+  text-align: center;
+  height: auto;
+  padding: 15px 0;
+}
+
+.navbarContainer {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.navbarContainer img {
+  width: 120px;
+}
+
+.navbarContainer a {
+  color: var(--color-secondary);
+  padding: 10px;
+  font-weight: bold;
+  transition: color .2s ease-out;
+}
+
+.navbarContainer a:hover {
+  color: var(--color-primary);
 }

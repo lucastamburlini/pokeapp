@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 
-
 .appContainer {
   width: 100%;
   height: 100%;
@@ -13,28 +12,39 @@
   justify-content: center;
   text-align: center;
   align-items: center;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-
 
 :root {
   /* Colores principales */
-  --color-primary: #f44336; /* Rojo */
-  --color-secondary: #FFCC00; /* Azul */
-  --color-accent: #0075BE; /* Naranja */
+  --color-primary: #f44336;
+  --color-secondary: #ffcc00;
+  --color-accent: #0075be;
 
   /* Colores de fondo */
-  --color-background: #f0f0f0; /* Gris claro */
+  --color-background: #f0f0f0;
+  --color-background-off: #494949;
+  --color-background-off-two: #F2F2F2;
 
   /* Texto y elementos */
-  --color-text: #333333; /* Texto principal */
-  --color-link: #007bff; /* Enlaces */
+  --color-text-one: #f0f0f0; /* Texto */
+  --color-text-two: #313131; /* Texto */
   --color-button: #4caf50; /* Botones */
 
+  /* Cards */
+  --color-border-one: #DCDDDE;
+  --color-border-one: #97999C;
+
   /* Otros colores personalizados */
-  --color-grass: #4caf50; 
-  --color-fire: #ff5722; 
-  --color-water: #2196f3; 
-  --color-electric: #ffeb3b; 
+  --color-grass: #4caf50;
+  --color-fire: #ff5722;
+  --color-water: #2196f3;
+  --color-electric: #ffeb3b;
   /* Puedes definir más colores aquí según tus necesidades */
+}
+
+/* Estilos generales */
+a {
+  text-decoration: none;
 }
