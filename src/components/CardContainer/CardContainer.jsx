@@ -55,9 +55,11 @@ const CardContainer = () => {
             key={pokemon.id}
             name={pokemon.name}
             id={pokemon.id}
+            hp={pokemon.hp}
             image={pokemon.image}
             types={pokemon.types}
             attack={pokemon.attack}
+            defense={pokemon.defense}
           />
         ))}
       </div>

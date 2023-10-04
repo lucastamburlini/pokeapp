@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { detailPokemon } from "../../redux/actions/infoActions";
 
-import style from './Card.module.css'
+import style from "./Card.module.css";
 
 const Card = (props) => {
   const navigate = useNavigate();
@@ -15,13 +15,26 @@ const Card = (props) => {
 
   return (
     <div onClick={hanldeNavigate} className={style.cardContainer}>
-      <p>{props.name}</p>
-      <img src={props.image} alt={props.name} />
-      <p>Ataque: {props.attack}</p>
+      <div className={style.imgContainer}>
+        <img src={props.image} alt={props.name} />
+      </div>
+
       <div>
-        {props.types.map((type) => {
-          return <p key={type.name}>{type.name}</p>;
-        })}
+        <p>N. {String(props.id).padStart(4, "0")}</p>
+        <p>{props.name}</p>
+      </div>
+
+      <div>
+        <p>Types:</p>
+        <div>
+          {props.types.map((type) => {
+            return (
+              <p className={style[type.name]} key={type.name}>
+                {type.name}
+              </p>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
