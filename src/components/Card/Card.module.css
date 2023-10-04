@@ -17,6 +17,38 @@
   height: 80%;
 }
 
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.infoId {
+  color: var(--color-text-two);
+  font-weight: bold;
+  font-size: 12px;
+  padding: 8px 0;
+}
+
+.infoName {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.typesContainer {
+  display: flex;
+  width: 90%;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 12px;
+}
+
+.typesContainer p {
+  padding: 2px 10px;
+  font-weight: bold;
+}
+
 .shadow {
   background-color: #333;
   color: #fff;

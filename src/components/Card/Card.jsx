@@ -19,22 +19,23 @@ const Card = (props) => {
         <img src={props.image} alt={props.name} />
       </div>
 
-      <div>
-        <p>N. {String(props.id).padStart(4, "0")}</p>
-        <p>{props.name}</p>
+      <div className={style.infoContainer}>
+        <p className={style.infoId}>
+          N.º&nbsp;{String(props.id).padStart(4, "0")}
+        </p>
+        <p className={style.infoName}>
+          {props.name.charAt(0).toUpperCase() + props.name.slice(1)}
+        </p>
       </div>
 
-      <div>
-        <p>Types:</p>
-        <div>
-          {props.types.map((type) => {
-            return (
-              <p className={style[type.name]} key={type.name}>
-                {type.name}
-              </p>
-            );
-          })}
-        </div>
+      <div className={style.typesContainer}>
+        {props.types.map((type) => {
+          return (
+            <p className={style[type.name]} key={type.name}>
+             {type.name.charAt(0).toUpperCase() + type.name.slice(1)}
+            </p>
+          );
+        })}
       </div>
     </div>
   );
