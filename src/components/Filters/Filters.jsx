@@ -7,7 +7,8 @@ import {
   originFilter,
   typeFilter,
 } from "../../redux/actions/infoActions";
-import styles from "./Filters.module.css";
+
+import style from "./Filters.module.css";
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -64,7 +65,7 @@ const Filters = () => {
   };
 
   return (
-    <div>
+    <div className={style.filterContainer}>
       <div>
         {["Database", "API"].map((filter) => {
           return (
@@ -72,7 +73,7 @@ const Filters = () => {
               onClick={handleFilterOrigin}
               key={filter}
               value={filter}
-              className={selectedOrigin === filter ? styles.selected : ""}
+              className={selectedOrigin === filter ? style.selected : ""}
             >
               {filter}
             </button>
@@ -88,7 +89,7 @@ const Filters = () => {
               onClick={handleFilterTypes}
               key={capitalizedFilter}
               value={filter}
-              className={selectedTypes.includes(filter) ? styles.selected : ""}
+              className={selectedTypes.includes(filter) ? style.selected : ""}
             >
               {capitalizedFilter}
             </button>
@@ -107,7 +108,7 @@ const Filters = () => {
               onClick={handleFilterOrder}
               key={filter}
               value={filter}
-              className={selectedOrder === filter ? styles.selected : ""}
+              className={selectedOrder === filter ? style.selected : ""}
             >
               {filter}
             </button>

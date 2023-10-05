@@ -10,7 +10,7 @@ const CardContainer = () => {
   const pokemons = useSelector((state) => state.pokemons);
   const filteredPokemons = useSelector((state) => state.filteredPokemons);
   const displayPokemons =
-  filteredPokemons.length > 0 ? filteredPokemons : pokemons;
+    filteredPokemons.length > 0 ? filteredPokemons : pokemons;
   console.log("La longitud de filteredPokemons es: ", filteredPokemons.length);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,19 +36,6 @@ const CardContainer = () => {
 
   return (
     <div>
-      <div>
-        <button onClick={handlePrev} disabled={currentPage === 1}>
-          Prev
-        </button>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button key={index + 1} onClick={() => setCurrentPage(index + 1)}>
-            {index + 1}
-          </button>
-        ))}
-        <button onClick={handleNext} disabled={currentPage === totalPages}>
-          Next
-        </button>
-      </div>
       <div className={style.cardContainer}>
         {currentItems.map((pokemon) => (
           <Card

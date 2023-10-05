@@ -17,7 +17,8 @@ const Home = () => {
   return (
     <div className={style.homeContainer}>
       <SearchBar />
-      <Filters/>
+    <Filters/>
+  
       <CardContainer />
     </div>
   );

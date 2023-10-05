@@ -1,3 +1,10 @@
+.filterContainer {
+  max-width: 1040px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: auto;
+}
+
 
 .selected {
     background-color: #007bff;
