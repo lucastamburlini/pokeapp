@@ -5,6 +5,7 @@ import { useState } from "react";
 import style from "./CardContainer.module.css";
 
 const ITEMS_PER_PAGE = 12;
+const MAX_PAGES_DISPLAYED = 5;
 
 const CardContainer = () => {
   const pokemons = useSelector((state) => state.pokemons);
@@ -17,8 +18,20 @@ const CardContainer = () => {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const totalPages = Math.ceil(displayPokemons.length / ITEMS_PER_PAGE);
-
   const currentItems = displayPokemons.slice(startIndex, endIndex);
+
+  let startPage = currentPage - Math.floor(MAX_PAGES_DISPLAYED / 2);
+  let endPage = currentPage + Math.floor(MAX_PAGES_DISPLAYED / 2);
+
+  if (startPage < 1) {
+    startPage = 1;
+    endPage = Math.min(MAX_PAGES_DISPLAYED, totalPages);
+  }
+
+  if (endPage > totalPages) {
+    endPage = totalPages;
+    startPage = Math.max(1, totalPages - MAX_PAGES_DISPLAYED + 1);
+  }
 
   const handleNext = () => {
     const totalElements = displayPokemons.length;
@@ -47,19 +60,26 @@ const CardContainer = () => {
             types={pokemon.types}
             attack={pokemon.attack}
             defense={pokemon.defense}
+            created={pokemon.created}
           />
         ))}
       </div>
-      <div>
-        <button onClick={handlePrev} disabled={currentPage === 1}>
+      <div className={style.paginationContainer}>
+        <button className={style.paginationBotton} onClick={handlePrev} disabled={currentPage === 1}>
           Prev
         </button>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button key={index + 1} onClick={() => setCurrentPage(index + 1)}>
-            {index + 1}
+        {Array.from({ length: endPage - startPage + 1 }, (_, index) => (
+          <button
+            key={startPage + index}
+            onClick={() => setCurrentPage(startPage + index)}
+            className={
+              currentPage === startPage + index ? style.currentPage : style.buttonPage
+            }
+          >
+            {startPage + index}
           </button>
         ))}
-        <button onClick={handleNext} disabled={currentPage === totalPages}>
+        <button className={style.paginationBotton} onClick={handleNext} disabled={currentPage === totalPages}>
           Next
         </button>
       </div>

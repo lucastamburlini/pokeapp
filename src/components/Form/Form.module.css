@@ -12,6 +12,11 @@
   font-weight: bold;
 }
 
+.formContainer label a {
+  text-decoration: none;
+  color: var(--color-details);
+}
+
 .formContainer input {
   width: 100%;
   padding: 10px;
@@ -19,6 +24,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 
 .formContainer select {
   width: 100%;

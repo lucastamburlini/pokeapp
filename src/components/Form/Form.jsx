@@ -100,7 +100,16 @@ const Form = () => {
       />
       {errors.name && <div className={style.errorMessage}>{errors.name}</div>}
 
-      <label>Image</label>
+      <label>
+        Image URL or{" "}
+        <a
+          href="https://replicate.com/lambdal/text-to-pokemon"
+          target="_blank"
+          rel="noreferrer"
+        >
+          CREATE IMAGE
+        </a>
+      </label>
       <input
         type="text"
         name="image"
@@ -203,11 +212,19 @@ const Form = () => {
         ))}
       </select>
 
-      <button className={style.submitButton} type="submit" disabled={!isFormComplete}>Submit</button>
+      <button
+        className={style.submitButton}
+        type="submit"
+        disabled={!isFormComplete}
+      >
+        Submit
+      </button>
       {successMessage && (
         <div className={style.successSubmitMessage}>{successMessage}</div>
       )}
-      {errorMessage && <div className={style.errorSubmitMessage}>{errorMessage}</div>}
+      {errorMessage && (
+        <div className={style.errorSubmitMessage}>{errorMessage}</div>
+      )}
     </form>
   );
 };
