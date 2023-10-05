@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ADD_ALL_POKEMONS, SEARCH_POKEMON, TYPES_POKEMONS, ORIGIN_FILTERS, ORDER_FILTERS, TYPE_FILTERS, CLEAR_FILTERS } from "./infoActionsTypes"
+import { ADD_ALL_POKEMONS, SEARCH_POKEMON, TYPES_POKEMONS, ORIGIN_FILTERS, ORDER_FILTERS, TYPE_FILTERS, CLEAR_FILTERS, RESTORE_POKEMON } from "./actionsTypes"
 
 
 export const getPokemons = () => {
@@ -14,7 +14,6 @@ export const getPokemons = () => {
         } catch (error) {
             console.error("Error al conectar la Base de Datos: ", { error: error.message })
         }
-
     }
 }
 
@@ -36,6 +35,13 @@ export const searchPokemon = (name) => {
                 alert("Ocurrió un error al buscar el Pokémon o el nombre no es válido.");
             }
         }
+    }
+}
+
+export const restorePokemon = (value) => {
+    return {
+        type: RESTORE_POKEMON,
+        payload: value,
     }
 }
 

@@ -1,0 +1,38 @@
+.searchContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 10px auto;
+  align-items: center;
+  gap: 10px;
+  max-width: 1040px;
+  flex-wrap: wrap;
+}
+
+.searchContainer input {
+  width: 50%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.searchButton {
+  display: block;
+  padding: 10px;
+  background-color: var(--color-secondary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.restoreButton {
+  display: block;
+  padding: 10px;
+  background-color: var(--color-secondary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

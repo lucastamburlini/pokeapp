@@ -6,7 +6,7 @@ import {
   orderFilter,
   originFilter,
   typeFilter,
-} from "../../redux/actions/infoActions";
+} from "../../redux/actions/actions";
 
 import style from "./Filters.module.css";
 

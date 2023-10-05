@@ -1,14 +1,13 @@
 import { useState } from "react";
-import style from "./SearchBar.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { getPokemons, searchPokemon } from "../../redux/actions/infoActions";
+import { restorePokemon, searchPokemon } from "../../redux/actions/actions";
+
+import style from "./SearchBar.module.css";
 
 const SearchBar = () => {
   const pokemons = useSelector((state) => state.pokemons);
   const dispatch = useDispatch();
   const [name, setName] = useState("");
-  const navigate = useNavigate();
 
   const handleData = (e) => {
     setName(e.target.value);
@@ -22,14 +21,12 @@ const SearchBar = () => {
     }
   };
 
-  const handleNavigate = () => {
-    setName("");
-    dispatch(getPokemons());
-    navigate("/home");
+  const handleRestore = () => {
+    dispatch(restorePokemon(pokemons))
   };
 
   return (
-    <div className={style}>
+    <div className={style.searchContainer}>
       <input
         placeholder="Add ID or Name"
         type="text"
@@ -43,8 +40,12 @@ const SearchBar = () => {
             <option key={pokemon.id} value={pokemon.name} />
           ))}
       </datalist>
-      <button onClick={handleSearch}>Buscar</button>
-      <button onClick={handleNavigate}>Restaurar</button>
+      <button className={style.searchButton} onClick={handleSearch}>
+        Search
+      </button>
+      <button className={style.restoreButton} onClick={handleRestore}>
+        Restore
+      </button>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTypesPokemons } from "../../redux/actions/infoActions";
+import { getTypesPokemons } from "../../redux/actions/actions";
 import axios from "axios";
 import { validation } from "../../helpers/validation";
 

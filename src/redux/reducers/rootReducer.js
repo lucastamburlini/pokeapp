@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { ADD_ALL_POKEMONS, SEARCH_POKEMON, ORIGIN_FILTERS, TYPES_POKEMONS, ORDER_FILTERS, TYPE_FILTERS, CLEAR_FILTERS } from "../actions/infoActionsTypes";
+import { ADD_ALL_POKEMONS, SEARCH_POKEMON, ORIGIN_FILTERS, TYPES_POKEMONS, ORDER_FILTERS, TYPE_FILTERS, CLEAR_FILTERS, RESTORE_POKEMON } from "../actions/actionsTypes";
 
 const initialState = {
     pokemons: [],
@@ -22,16 +22,14 @@ const infoReducer = (state = initialState, action) => {
             };
 
         case SEARCH_POKEMON:
-            if (action.payload === "") {
-                return {
-                    ...state,
-                    pokemons: state.copiaPokemons,
-                }
-            } else {
-                return {
-                    ...state,
-                    filteredPokemons: action.payload
-                }
+            return {
+                ...state,
+                filteredPokemons: action.payload
+            }
+
+        case RESTORE_POKEMON:
+            return {
+                ...state,
             }
 
         case TYPES_POKEMONS:
