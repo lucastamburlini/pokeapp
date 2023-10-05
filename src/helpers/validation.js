@@ -12,6 +12,10 @@ export const validation = (props) => {
         errors.name = "Must have at least 4 letters.";
     }
 
+    if(props.image.length < 10){
+        errors.image = "Must have at least 10 letters.";
+    }
+
     if (props.hp < 1 || props.hp > 255) {
         errors.hp = "The HP value must be in the range of 1 to 255."
     }

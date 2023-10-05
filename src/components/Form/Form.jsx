@@ -4,8 +4,13 @@ import { getTypesPokemons } from "../../redux/actions/infoActions";
 import axios from "axios";
 import { validation } from "../../helpers/validation";
 
+import style from "./Form.module.css";
+
 const Form = () => {
   const typesPokemons = useSelector((state) => state.typesPokemons);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isFormComplete, setIsFormComplete] = useState(false);
   const dispatch = useDispatch();
   const [form, setForm] = useState({
     name: "",
@@ -29,10 +34,15 @@ const Form = () => {
     weight: "",
     types: "",
   });
+  console.log("Datos del form: ", form);
 
   useEffect(() => {
     dispatch(getTypesPokemons());
-  }, []);
+    const isComplete =
+      Object.values(form).every((value) => value !== "") &&
+      form.types.length > 1;
+    setIsFormComplete(isComplete);
+  }, [form]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,12 +64,14 @@ const Form = () => {
       });
     }
 
-    setErrors(
-      validation({
-        ...form,
-        [name]: value,
-      })
-    );
+    if (name !== "secondaryType") {
+      setErrors(
+        validation({
+          ...form,
+          [name]: value,
+        })
+      );
+    }
   };
 
   const handleSubmit = (e) => {
@@ -68,24 +80,17 @@ const Form = () => {
     axios
       .post("http://localhost:3001/pokemons/pokemons", form)
       .then((response) => {
-        console.log("Nuevo Pokémon creado:", response.data);
+        setSuccessMessage("Nuevo Pokémon creado: " + response.data.name);
+        setErrorMessage(""); //
       })
       .catch((error) => {
-        console.error("Error al crear el Pokémon:", error);
+        setErrorMessage("Error al crear el Pokémon: " + error.message);
+        setSuccessMessage("");
       });
   };
 
-  
-  let hasErrors = false;
-  for (const key in errors) {
-    if (errors[key]) {
-      hasErrors = true;
-      break;
-    }
-  }
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={style.formContainer}>
       <label>Name</label>
       <input
         type="text"
@@ -93,7 +98,7 @@ const Form = () => {
         onChange={handleChange}
         value={form.name}
       />
-      {errors.name && <div>{errors.name}</div>}
+      {errors.name && <div className={style.errorMessage}>{errors.name}</div>}
 
       <label>Image</label>
       <input
@@ -102,6 +107,7 @@ const Form = () => {
         onChange={handleChange}
         value={form.image}
       />
+      {errors.image && <div className={style.errorMessage}>{errors.image}</div>}
 
       <label>HP</label>
       <input
@@ -112,7 +118,7 @@ const Form = () => {
         min="1"
         max="255"
       />
-      {errors.hp && <div>{errors.hp}</div>}
+      {errors.hp && <div className={style.errorMessage}>{errors.hp}</div>}
 
       <label>Attack</label>
       <input
@@ -123,7 +129,9 @@ const Form = () => {
         min="1"
         max="255"
       />
-      {errors.attack && <div>{errors.attack}</div>}
+      {errors.attack && (
+        <div className={style.errorMessage}>{errors.attack}</div>
+      )}
 
       <label>Defense</label>
       <input
@@ -134,7 +142,9 @@ const Form = () => {
         min="1"
         max="255"
       />
-      {errors.defense && <div>{errors.defense}</div>}
+      {errors.defense && (
+        <div className={style.errorMessage}>{errors.defense}</div>
+      )}
 
       <label>Speed</label>
       <input
@@ -145,7 +155,7 @@ const Form = () => {
         min="1"
         max="255"
       />
-      {errors.speed && <div>{errors.speed}</div>}
+      {errors.speed && <div className={style.errorMessage}>{errors.speed}</div>}
 
       <label>Height</label>
       <input
@@ -156,7 +166,9 @@ const Form = () => {
         min="1"
         max="255"
       />
-      {errors.height && <div>{errors.height}</div>}
+      {errors.height && (
+        <div className={style.errorMessage}>{errors.height}</div>
+      )}
 
       <label>Weight</label>
       <input
@@ -167,7 +179,9 @@ const Form = () => {
         min="10"
         max="255"
       />
-      {errors.weight && <div>{errors.weight}</div>}
+      {errors.weight && (
+        <div className={style.errorMessage}>{errors.weight}</div>
+      )}
 
       <label>Type:</label>
       <select name="types" onChange={handleChange}>
@@ -178,7 +192,7 @@ const Form = () => {
           </option>
         ))}
       </select>
-      {errors.types && <div>{errors.types}</div>}
+      {errors.types && <div className={style.errorMessage}>{errors.types}</div>}
 
       <select name="secondaryType" onChange={handleChange}>
         <option>Selecciona un tipo</option>
@@ -189,9 +203,11 @@ const Form = () => {
         ))}
       </select>
 
-      <button disabled={hasErrors} type="submit">
-        Submit
-      </button>
+      <button className={style.submitButton} type="submit" disabled={!isFormComplete}>Submit</button>
+      {successMessage && (
+        <div className={style.successSubmitMessage}>{successMessage}</div>
+      )}
+      {errorMessage && <div className={style.errorSubmitMessage}>{errorMessage}</div>}
     </form>
   );
 };

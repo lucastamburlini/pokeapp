@@ -1,0 +1,63 @@
+.formContainer {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+}
+
+.formContainer label {
+  display: block;
+  font-weight: bold;
+}
+
+.formContainer input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.formContainer select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 14px;
+}
+
+.submitButton {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 15px 0;
+  background-color: var(--color-secondary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submitButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.successSubmitMessage {
+  color: green;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.errorSubmitMessage {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}

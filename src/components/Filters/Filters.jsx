@@ -23,7 +23,7 @@ const Filters = () => {
 
   const handleFilterOrigin = (e) => {
     const filterValue = e.target.value;
-    dispatch(originFilter(filterValue))
+    dispatch(originFilter(filterValue));
     setSelectedOrigin((prev) => (prev === filterValue ? null : filterValue));
   };
 
@@ -67,58 +67,63 @@ const Filters = () => {
   return (
     <div className={style.filterContainer}>
       <div>
-        {["Database", "API"].map((filter) => {
-          return (
-            <button
-              onClick={handleFilterOrigin}
-              key={filter}
-              value={filter}
-              className={selectedOrigin === filter ? style.selected : ""}
-            >
-              {filter}
-            </button>
-          );
-        })}
+        <h2>Filters</h2>
       </div>
-      <div>
-        {typesPokemons.map((filter) => {
-          const capitalizedFilter =
-            filter.charAt(0).toUpperCase() + filter.slice(1);
-          return (
-            <button
-              onClick={handleFilterTypes}
-              key={capitalizedFilter}
-              value={filter}
-              className={selectedTypes.includes(filter) ? style.selected : ""}
-            >
-              {capitalizedFilter}
-            </button>
-          );
-        })}
-      </div>
-      <div>
-        {[
-          "Ascending (Name)",
-          "Descending (Name)",
-          "By Attack (Low to High)",
-          "By Attack (High to Low)",
-        ].map((filter) => {
-          return (
-            <button
-              onClick={handleFilterOrder}
-              key={filter}
-              value={filter}
-              className={selectedOrder === filter ? style.selected : ""}
-            >
-              {filter}
-            </button>
-          );
-        })}
-      </div>
-      <div>
-        <button onClick={hanldeClearFilter} value={"clear"}>
-          Clear
-        </button>
+      <div className={style.selectedContainer}>
+        <div>
+          {["Database", "API"].map((filter) => {
+            return (
+              <button
+                onClick={handleFilterOrigin}
+                key={filter}
+                value={filter}
+                className={selectedOrigin === filter ? style.selected : ""}
+              >
+                {filter}
+              </button>
+            );
+          })}
+        </div>
+        <div>
+          {typesPokemons.map((filter) => {
+            const capitalizedFilter =
+              filter.charAt(0).toUpperCase() + filter.slice(1);
+            return (
+              <button
+                onClick={handleFilterTypes}
+                key={capitalizedFilter}
+                value={filter}
+                className={selectedTypes.includes(filter) ? style.selected : ""}
+              >
+                {capitalizedFilter}
+              </button>
+            );
+          })}
+        </div>
+        <div>
+          {[
+            "Ascending (Name)",
+            "Descending (Name)",
+            "By Attack (Low to High)",
+            "By Attack (High to Low)",
+          ].map((filter) => {
+            return (
+              <button
+                onClick={handleFilterOrder}
+                key={filter}
+                value={filter}
+                className={selectedOrder === filter ? style.selected : ""}
+              >
+                {filter}
+              </button>
+            );
+          })}
+        </div>
+        <div>
+          <button onClick={hanldeClearFilter} value={"clear"}>
+            Clear
+          </button>
+        </div>
       </div>
     </div>
   );
