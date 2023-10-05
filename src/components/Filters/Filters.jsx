@@ -16,14 +16,14 @@ const Filters = () => {
     dispatch(getTypesPokemons());
   }, []);
 
-  const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedOrigin, setSelectedOrigin] = useState(null);
+  const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
   const handleFilterOrigin = (e) => {
     const filterValue = e.target.value;
+    dispatch(originFilter(filterValue))
     setSelectedOrigin((prev) => (prev === filterValue ? null : filterValue));
-    dispatch(originFilter(filterValue));
   };
 
   const handleFilterOrder = (e) => {
@@ -59,11 +59,26 @@ const Filters = () => {
   const hanldeClearFilter = (e) => {
     dispatch(clearFilter(e.target.value));
     setSelectedTypes([]);
-    setSelectedOrigin(null), setSelectedOrder(null);
+    setSelectedOrigin(null);
+    setSelectedOrder(null);
   };
 
   return (
     <div>
+      <div>
+        {["Database", "API"].map((filter) => {
+          return (
+            <button
+              onClick={handleFilterOrigin}
+              key={filter}
+              value={filter}
+              className={selectedOrigin === filter ? styles.selected : ""}
+            >
+              {filter}
+            </button>
+          );
+        })}
+      </div>
       <div>
         {typesPokemons.map((filter) => {
           const capitalizedFilter =
@@ -76,20 +91,6 @@ const Filters = () => {
               className={selectedTypes.includes(filter) ? styles.selected : ""}
             >
               {capitalizedFilter}
-            </button>
-          );
-        })}
-      </div>
-      <div>
-        {["All", "Database", "API"].map((filter) => {
-          return (
-            <button
-              onClick={handleFilterOrigin}
-              key={filter}
-              value={filter}
-              className={selectedOrigin === filter ? styles.selected : ""}
-            >
-              {filter}
             </button>
           );
         })}

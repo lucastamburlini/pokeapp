@@ -1,16 +1,12 @@
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { detailPokemon } from "../../redux/actions/infoActions";
 
 import style from "./Card.module.css";
 
 const Card = (props) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const hanldeNavigate = () => {
     navigate(`/detail/${props.id}`);
-    dispatch(detailPokemon(`${props.id}`));
   };
 
   return (

@@ -1,13 +1,14 @@
 /* eslint-disable no-case-declarations */
-import { ADD_ALL_POKEMONS, DETAIL_POKEMON, SEARCH_POKEMON, ORIGIN_FILTERS, TYPES_POKEMONS, ORDER_FILTERS, TYPE_FILTERS, CLEAR_FILTERS } from "../actions/infoActionsTypes";
+import { ADD_ALL_POKEMONS, SEARCH_POKEMON, ORIGIN_FILTERS, TYPES_POKEMONS, ORDER_FILTERS, TYPE_FILTERS, CLEAR_FILTERS } from "../actions/infoActionsTypes";
 
 const initialState = {
     pokemons: [],
     copiaPokemons: [],
-    detailPokemon: [],
-    typesPokemons: [],
     filteredPokemons: [],
-    typesFilter: []
+    origin_filter: [],
+    types_filter: [],
+    order_filter: [],
+    typesPokemons: [],
 };
 
 const infoReducer = (state = initialState, action) => {
@@ -18,7 +19,6 @@ const infoReducer = (state = initialState, action) => {
                 ...state,
                 pokemons: action.payload,
                 copiaPokemons: action.payload,
-                filteredPokemons: action.payload
             };
 
         case SEARCH_POKEMON:
@@ -34,12 +34,6 @@ const infoReducer = (state = initialState, action) => {
                 }
             }
 
-        case DETAIL_POKEMON:
-            return {
-                ...state,
-                detailPokemon: action.payload
-            }
-
         case TYPES_POKEMONS:
             return {
                 ...state,
@@ -48,27 +42,51 @@ const infoReducer = (state = initialState, action) => {
 
 
         case ORIGIN_FILTERS:
+            const newOrigin = action.payload;
 
+            let arrayOrigin = [...state.origin_filter];
             let origin = [...state.copiaPokemons];
+            console.log("arrayOrigin:", arrayOrigin.length);
 
-            if (action.payload === "Database") {
+            const originIndex = arrayOrigin.indexOf(newOrigin);
+
+            if (newOrigin === "Database") {
                 origin = origin.filter((pokemon) => {
                     return isNaN(pokemon.id);
                 });
-            } else if (action.payload === "API") {
+            } else if (newOrigin === "API") {
                 origin = origin.filter((pokemon) => {
                     return !isNaN(pokemon.id);
                 });
             }
+
+            if (originIndex === -1) {
+                arrayOrigin = [newOrigin];
+            } else {
+                arrayOrigin = [];
+                origin = [...state.pokemons]
+            }
+
             return {
                 ...state,
+                copiaPokemons: [...origin],
                 filteredPokemons: [...origin],
+                origin_filter: arrayOrigin,
             };
 
 
         case ORDER_FILTERS:
-            let cp = [...state.pokemons]
+            let cp = [...state.copiaPokemons]
             let fp = [...state.filteredPokemons]
+
+            if (state.lastOrder === action.payload) {
+                return {
+                    ...state,
+                    copiaPokemons: [...state.pokemons],
+                    lastOrder: null,
+                };
+            }
+
 
             if (action.payload === "Ascending (Name)") {
                 cp.sort((a, b) => (a.name > b.name ? 1 : -1));
@@ -83,14 +101,17 @@ const infoReducer = (state = initialState, action) => {
                 cp.sort((a, b) => (b.attack > a.attack ? 1 : -1));
                 fp.sort((a, b) => (b.attack > a.attack ? 1 : -1));
             }
+
             return {
                 ...state,
                 copiaPokemons: [...cp],
-                filteredPokemons: [...fp]
-            }
+                filteredPokemons: [...fp],
+            };
+
+
 
         case TYPE_FILTERS:
-            const arrayTypes = [...state.typesFilter];
+            const arrayTypes = [...state.types_filter];
             const newType = action.payload;
 
             if (arrayTypes.includes(newType)) {
@@ -107,13 +128,13 @@ const infoReducer = (state = initialState, action) => {
                 }
             }
 
-            let filter = [...state.pokemons];
+            let filter = [...state.copiaPokemons];
 
             if (arrayTypes.length === 0) {
                 return {
                     ...state,
-                    filteredPokemons: [...filter],
-                    typesFilter: [...arrayTypes],
+                    filteredPokemons: [...state.copiaPokemons],
+                    types_filter: [...arrayTypes],
                 };
             } else if (arrayTypes.length <= 2) {
                 filter = filter.filter(pokemon => {
@@ -123,9 +144,8 @@ const infoReducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                copiaPokemons: [...filter],
                 filteredPokemons: [...filter],
-                typesFilter: [...arrayTypes],
+                types_filter: [...arrayTypes],
             };
 
         case CLEAR_FILTERS:
@@ -133,8 +153,8 @@ const infoReducer = (state = initialState, action) => {
                 return {
                     ...state,
                     copiaPokemons: [...state.pokemons],
-                    filteredPokemons: [],
-                    typesFilter: [],
+                    filteredPokemons: [...state.pokemons],
+                    types_filter: [],
                 };
             }
             return {
