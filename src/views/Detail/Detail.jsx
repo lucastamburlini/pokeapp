@@ -26,21 +26,106 @@ const Detail = () => {
       <div className={style.detailImg}>
         <img src={pokemon.image} alt={pokemon.name} />
       </div>
+
       <div className={style.detailInfo}>
-        <div>Name: {pokemon.name}</div>
-        <div>HP: {pokemon.hp}</div>
-        <div>Attack: {pokemon.attack}</div>
-        <div>Defense: {pokemon.defense}</div>
-        {pokemon.speed && <div>Speed: {pokemon.speed}</div>}
-        {pokemon.height && <div>Height: {pokemon.height}</div>}
-        {pokemon.weight && <div>Weight: {pokemon.weight}</div>}
-        <div>
-          {pokemon.types &&
-            pokemon.types.map((type) => (
-              <p className={style[type.name]} key={type.name}>
-                {type.name.charAt(0).toUpperCase() + type.name.slice(1)}
-              </p>
-            ))}
+        <div className={style.title}>
+          <div>
+            {pokemon.name &&
+              pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+          </div>
+          <div className={style.infoId}>ID: {pokemon.id}</div>
+        </div>
+
+        <div className={style.stats}>
+          <div className={style.stat}>
+            <div>HP</div>
+            <div className={style.progressBar}>
+              <div className={style.progressContainer}>
+                <div
+                  className={style.progressPer}
+                  style={{ width: `${(pokemon.hp / 255) * 100}%` }}
+                ></div>
+              </div>
+              <div>{pokemon.hp}</div>
+            </div>
+          </div>
+          <div className={style.stat}>
+            <div>Attack</div>
+            <div className={style.progressBar}>
+              <div className={style.progressContainer}>
+                <div
+                  className={style.progressPer}
+                  style={{ width: `${(pokemon.attack / 190) * 100}%` }}
+                ></div>
+              </div>
+              <div>{pokemon.attack}</div>
+            </div>
+          </div>
+          <div className={style.stat}>
+            <div>Defense</div>
+            <div className={style.progressBar}>
+              <div className={style.progressContainer}>
+                <div
+                  className={style.progressPer}
+                  style={{ width: `${(pokemon.defense / 230) * 100}%` }}
+                ></div>
+              </div>
+              <div>{pokemon.defense}</div>
+            </div>
+          </div>
+          <div className={style.stat}>
+            <div>Speed</div>
+            <div className={style.progressBar}>
+              <div className={style.progressContainer}>
+                <div
+                  className={style.progressPer}
+                  style={{ width: `${(pokemon.speed / 180) * 100}%` }}
+                ></div>
+              </div>
+              <div>{pokemon.speed}</div>
+            </div>
+          </div>
+        </div>
+
+        <div className={style.detailMeasures}>
+          <div>
+            {pokemon.height && (
+              <div>
+                <p>Height</p>{" "}
+                <p className={style.number}>
+                  {(pokemon.height / 10).toFixed(1)} m
+                </p>
+              </div>
+            )}
+          </div>
+          <div>
+            {" "}
+            {pokemon.weight && (
+              <div>
+                <p>Weight</p>{" "}
+                <p className={style.number}>
+                  {(pokemon.weight / 10).toFixed(1)} kg
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className={style.detailFooter}>
+          <div className={style.type}>
+            <div>
+              {pokemon.types &&
+                pokemon.types.map((type) => (
+                  <p className={style[type.name]} key={type.name}>
+                    {type.name.charAt(0).toUpperCase() + type.name.slice(1)}
+                  </p>
+                ))}
+            </div>
+          </div>
+          <div className={style.buttons}>
+            <button className={style.buttonUpdate}>Update</button>
+            <button className={style.buttonDelete}>Delete</button>
+          </div>
         </div>
       </div>
     </div>

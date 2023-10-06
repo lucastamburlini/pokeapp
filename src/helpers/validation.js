@@ -20,24 +20,24 @@ export const validation = (props) => {
         errors.hp = "The HP value must be in the range of 1 to 255."
     }
 
-    if (props.attack < 1 || props.attack > 255) {
-        errors.attack = "The attack value must be in the range of 1 to 255."
+    if (props.attack < 5 || props.attack > 190) {
+        errors.attack = "The attack value must be in the range of 5 to 190."
     }
 
-    if (props.defense < 1 || props.defense > 255) {
-        errors.defense = "The defense value must be in the range of 1 to 255."
+    if (props.defense < 5 || props.defense > 230) {
+        errors.defense = "The defense value must be in the range of 5 to 230."
     }
 
-    if (props.speed < 1 || props.speed > 255) {
-        errors.speed = "The speed value must be in the range of 1 to 255."
+    if (props.speed < 5 || props.speed > 180) {
+        errors.speed = "The speed value must be in the range of 5 to 180."
     }
 
-    if (props.height < 1 || props.height > 1000) {
-        errors.height = "The height value must be in the range of 1 to 255."
+    if (props.height < 1) {
+        errors.height = "The height value must be greater than 1."
     }
 
-    if (props.weight < 10 || props.weight > 9999) {
-        errors.weight = "The weight value must be in the range of 1 to 255."
+    if (props.weight < 10) {
+        errors.weight = "The height value must be greater than 10."
     }
 
     if (props.types[0] === "" || props.types[0] === undefined) {

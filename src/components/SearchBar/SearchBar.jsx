@@ -40,10 +40,10 @@ const SearchBar = () => {
             <option key={pokemon.id} value={pokemon.name} />
           ))}
       </datalist>
-      <button className={style.searchButton} onClick={handleSearch}>
+      <button className={style.button} onClick={handleSearch}>
         Search
       </button>
-      <button className={style.restoreButton} onClick={handleRestore}>
+      <button className={style.button} onClick={handleRestore}>
         Restore
       </button>
     </div>

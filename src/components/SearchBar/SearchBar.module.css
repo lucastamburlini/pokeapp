@@ -17,17 +17,7 @@
   border-radius: 5px;
 }
 
-.searchButton {
-  display: block;
-  padding: 10px;
-  background-color: var(--color-secondary);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.restoreButton {
+.button {
   display: block;
   padding: 10px;
   background-color: var(--color-secondary);

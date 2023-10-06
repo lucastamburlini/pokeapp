@@ -16,9 +16,9 @@ const Form = () => {
     name: "",
     image: "",
     hp: 1,
-    attack: 1,
-    defense: 1,
-    speed: 1,
+    attack: 5,
+    defense: 5,
+    speed: 5,
     height: 1,
     weight: 10,
     types: [],
@@ -135,8 +135,8 @@ const Form = () => {
         name="attack"
         onChange={handleChange}
         value={form.attack}
-        min="1"
-        max="255"
+        min="5"
+        max="190"
       />
       {errors.attack && (
         <div className={style.errorMessage}>{errors.attack}</div>
@@ -148,8 +148,8 @@ const Form = () => {
         name="defense"
         onChange={handleChange}
         value={form.defense}
-        min="1"
-        max="255"
+        min="5"
+        max="230"
       />
       {errors.defense && (
         <div className={style.errorMessage}>{errors.defense}</div>
@@ -157,12 +157,12 @@ const Form = () => {
 
       <label>Speed</label>
       <input
-        type="numer"
+        type="number"
         name="speed"
         onChange={handleChange}
         value={form.speed}
-        min="1"
-        max="255"
+        min="5"
+        max="180"
       />
       {errors.speed && <div className={style.errorMessage}>{errors.speed}</div>}
 
@@ -173,7 +173,6 @@ const Form = () => {
         onChange={handleChange}
         value={form.height}
         min="1"
-        max="255"
       />
       {errors.height && (
         <div className={style.errorMessage}>{errors.height}</div>
@@ -186,7 +185,6 @@ const Form = () => {
         onChange={handleChange}
         value={form.weight}
         min="10"
-        max="255"
       />
       {errors.weight && (
         <div className={style.errorMessage}>{errors.weight}</div>

@@ -20,6 +20,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin: 3px;
 }
 
 .paginationContainer button[disabled] {
@@ -44,6 +45,6 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-  margin: 0 7px;
+  margin: 0 4px;
 }
 
