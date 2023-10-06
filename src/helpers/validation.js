@@ -2,7 +2,6 @@ const regexName = /^[A-Za-z]+$/;
 
 export const validation = (props) => {
     let errors = {}
-    console.log("Props recibidos en la función validation:", props);
 
     if (!props.name) {
         errors.name = "Name is required.";

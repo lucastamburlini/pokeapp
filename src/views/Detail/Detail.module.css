@@ -107,6 +107,7 @@
   width: 50%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 5px;
 }
 
@@ -143,6 +144,12 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+.detailFooter button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 
 @media (max-width: 768px) {
   .detailImg {

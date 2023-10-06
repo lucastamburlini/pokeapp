@@ -7,7 +7,6 @@ import style from "./Detail.module.css";
 const Detail = () => {
   const [pokemon, setPokemon] = useState({});
   const { id } = useParams();
-  console.log("Data:", pokemon);
 
   useEffect(() => {
     axios
@@ -123,8 +122,21 @@ const Detail = () => {
             </div>
           </div>
           <div className={style.buttons}>
-            <button className={style.buttonUpdate}>Update</button>
-            <button className={style.buttonDelete}>Delete</button>
+            {pokemon.created === true ? (
+              <>
+                <button disabled={false} className={style.buttonUpdate}>
+                  Update
+                </button>
+                <button disabled={false} className={style.buttonDelete}>Delete</button>
+              </>
+            ) : (
+              <>
+                <button disabled={true} className={style.buttonUpdate}>
+                  Update
+                </button>
+                <button disabled={true} className={style.buttonDelete}>Delete</button>
+              </>
+            )}
           </div>
         </div>
       </div>

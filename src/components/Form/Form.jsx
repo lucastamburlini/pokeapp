@@ -34,7 +34,6 @@ const Form = () => {
     weight: "",
     types: "",
   });
-  console.log("Datos del form: ", form);
 
   useEffect(() => {
     dispatch(getTypesPokemons());

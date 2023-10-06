@@ -80,9 +80,8 @@ export const typeFilter = (filter) => {
     }
 }
 
-export const clearFilter = (filter) => {
+export const clearFilter = () => {
     return {
         type: CLEAR_FILTERS,
-        payload: filter
     }
 }

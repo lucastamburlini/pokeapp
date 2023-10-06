@@ -34,15 +34,14 @@ const Filters = () => {
 
   const handleFilterOrder = (e) => {
     const filterValue = e.target.value;
-  
+
     if (filterValue === selectedOrder) {
       return;
     }
-  
+
     dispatch(orderFilter(filterValue));
     setSelectedOrder(filterValue);
   };
-  
 
   const handleFilterTypes = (e) => {
     const filterValue = e.target.value;
@@ -75,10 +74,12 @@ const Filters = () => {
   };
 
   const handleClearFilter = () => {
-    dispatch(clearFilter());
-    setSelectedTypes(["all"]);
     setSelectedOrigin("All");
+    setSelectedTypes(["all"]);
     setSelectedOrder("ID");
+
+    dispatch(clearFilter());
+
   };
 
   return (
