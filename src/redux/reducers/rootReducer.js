@@ -5,7 +5,7 @@ const initialState = {
     pokemons: [],
     copiaPokemons: [],
     filteredPokemons: [],
-    types_filter: [],
+    types_filter: ["All"],
     typesPokemons: [],
 };
 
@@ -60,42 +60,29 @@ const infoReducer = (state = initialState, action) => {
             };
 
         case TYPE_FILTERS:
-            const arrayTypes = [...state.types_filter];
             const newType = action.payload;
 
-            if (arrayTypes.includes(newType)) {
-                const indexToRemove = arrayTypes.indexOf(newType);
-                if (indexToRemove !== -1) {
-                    arrayTypes.splice(indexToRemove, 1);
-                }
-            } else {
-                if (arrayTypes.length < 2) {
-                    arrayTypes.push(newType);
-                } else {
-                    arrayTypes.shift();
-                    arrayTypes.push(newType);
-                }
-            }
 
-            let filter = [...state.copiaPokemons];
+            let filter = [...state.pokemons];
 
-            if (arrayTypes.length === 0) {
+            if (newType.length === "All") {
                 return {
                     ...state,
                     filteredPokemons: [],
-                    types_filter: [...arrayTypes],
+                    types_filter: [...newType],
                 };
-            } else if (arrayTypes.length <= 2) {
+            } else if (newType.length <= 2) {
                 filter = filter.filter(pokemon => {
-                    return arrayTypes.every(type => pokemon.types.some(item => item.name === type));
+                    return newType.every(type => pokemon.types.some(item => item.name === type));
                 });
             }
 
             return {
                 ...state,
                 filteredPokemons: [...filter],
-                types_filter: [...arrayTypes],
+                types_filter: [...newType],
             };
+
 
         case ORDER_FILTERS:
             let op = [...state.pokemons]

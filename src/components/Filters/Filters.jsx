@@ -18,7 +18,7 @@ const Filters = () => {
   }, []);
 
   const [selectedOrigin, setSelectedOrigin] = useState("All");
-  const [selectedTypes, setSelectedTypes] = useState(["All"]);
+  const [selectedTypes, setSelectedTypes] = useState(["all"]);
   const [selectedOrder, setSelectedOrder] = useState("ID");
 
   const handleFilterOrigin = (e) => {
@@ -32,44 +32,51 @@ const Filters = () => {
     setSelectedOrigin(filterValue);
   };
 
-  const handleFilterTypesWithLimit = (filterValue) => {
-    const updatedSelectedTypes = [...selectedTypes];
-    const index = updatedSelectedTypes.indexOf(filterValue);
-
-    if (index !== -1) {
-      updatedSelectedTypes.splice(index, 1);
-    } else {
-      if (updatedSelectedTypes.length < 2) {
-        updatedSelectedTypes.push(filterValue);
-      } else {
-        updatedSelectedTypes.shift();
-        updatedSelectedTypes.push(filterValue);
-      }
-    }
-
-    setSelectedTypes(updatedSelectedTypes);
-  };
-
   const handleFilterOrder = (e) => {
     const filterValue = e.target.value;
-
-    if (filterValue === setSelectedOrder) {
+  
+    if (filterValue === selectedOrder) {
       return;
     }
-
+  
     dispatch(orderFilter(filterValue));
     setSelectedOrder(filterValue);
   };
+  
 
   const handleFilterTypes = (e) => {
     const filterValue = e.target.value;
-    handleFilterTypesWithLimit(filterValue);
-    dispatch(typeFilter(filterValue));
+    let type = [];
+
+    if (filterValue === "all") {
+      type.push("all");
+    } else {
+      if (selectedTypes.includes("all")) {
+        type.push(filterValue);
+      } else {
+        if (selectedTypes.length === 2) {
+          type.push(filterValue);
+        } else {
+          if (selectedTypes.includes(filterValue)) {
+            type = selectedTypes.filter((type) => type !== filterValue);
+          } else {
+            type = [...selectedTypes, filterValue];
+          }
+        }
+      }
+    }
+
+    if (type.length === 0) {
+      type = ["all"];
+    }
+
+    setSelectedTypes(type);
+    dispatch(typeFilter(type));
   };
 
-  const hanldeClearFilter = (e) => {
-    dispatch(clearFilter(e.target.value));
-    setSelectedTypes([]);
+  const handleClearFilter = () => {
+    dispatch(clearFilter());
+    setSelectedTypes(["all"]);
     setSelectedOrigin("All");
     setSelectedOrder("ID");
   };
@@ -95,13 +102,7 @@ const Filters = () => {
           })}
         </div>
         <div>
-          <button
-            onClick={handleFilterTypes}
-            className={selectedOrigin === "All" ? style.selected : ""}
-          >
-            All
-          </button>
-          {typesPokemons.map((filter) => {
+          {["all", ...typesPokemons].map((filter) => {
             const capitalizedFilter =
               filter.charAt(0).toUpperCase() + filter.slice(1);
             return (
@@ -137,7 +138,7 @@ const Filters = () => {
           })}
         </div>
         <div>
-          <button onClick={hanldeClearFilter} value={"clear"}>
+          <button onClick={handleClearFilter} value={"clear"}>
             Clear
           </button>
         </div>
