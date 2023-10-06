@@ -5,9 +5,7 @@ const initialState = {
     pokemons: [],
     copiaPokemons: [],
     filteredPokemons: [],
-    origin_filter: [],
     types_filter: [],
-    order_filter: [],
     typesPokemons: [],
 };
 
@@ -40,73 +38,26 @@ const infoReducer = (state = initialState, action) => {
 
 
         case ORIGIN_FILTERS:
-            const newOrigin = action.payload;
-
-            let arrayOrigin = [...state.origin_filter];
-            let origin = [...state.copiaPokemons];
-            console.log("arrayOrigin:", arrayOrigin.length);
-
-            const originIndex = arrayOrigin.indexOf(newOrigin);
-
-            if (newOrigin === "Database") {
+            let origin = [...state.pokemons]
+            if (action.payload === "All") {
+                return {
+                    ...state,
+                    filteredPokemons: [],
+                }
+            } else if (action.payload === "Database") {
                 origin = origin.filter((pokemon) => {
                     return isNaN(pokemon.id);
                 });
-            } else if (newOrigin === "API") {
+            } else if (action.payload === "API") {
                 origin = origin.filter((pokemon) => {
                     return !isNaN(pokemon.id);
                 });
             }
 
-            if (originIndex === -1) {
-                arrayOrigin = [newOrigin];
-            } else {
-                arrayOrigin = [];
-                origin = [...state.pokemons]
-            }
-
             return {
                 ...state,
-                copiaPokemons: [...origin],
                 filteredPokemons: [...origin],
-                origin_filter: arrayOrigin,
             };
-
-
-        case ORDER_FILTERS:
-            let cp = [...state.copiaPokemons]
-            let fp = [...state.filteredPokemons]
-
-            if (state.lastOrder === action.payload) {
-                return {
-                    ...state,
-                    copiaPokemons: [...state.pokemons],
-                    lastOrder: null,
-                };
-            }
-
-
-            if (action.payload === "Ascending (Name)") {
-                cp.sort((a, b) => (a.name > b.name ? 1 : -1));
-                fp.sort((a, b) => (a.name > b.name ? 1 : -1));
-            } else if (action.payload === "Descending (Name)") {
-                cp.sort((a, b) => (b.name > a.name ? 1 : -1));
-                fp.sort((a, b) => (b.name > a.name ? 1 : -1));
-            } else if (action.payload === "By Attack (Low to High)") {
-                cp.sort((a, b) => (a.attack > b.attack ? 1 : -1));
-                fp.sort((a, b) => (a.attack > b.attack ? 1 : -1));
-            } else if (action.payload === "By Attack (High to Low)") {
-                cp.sort((a, b) => (b.attack > a.attack ? 1 : -1));
-                fp.sort((a, b) => (b.attack > a.attack ? 1 : -1));
-            }
-
-            return {
-                ...state,
-                copiaPokemons: [...cp],
-                filteredPokemons: [...fp],
-            };
-
-
 
         case TYPE_FILTERS:
             const arrayTypes = [...state.types_filter];
@@ -131,7 +82,7 @@ const infoReducer = (state = initialState, action) => {
             if (arrayTypes.length === 0) {
                 return {
                     ...state,
-                    filteredPokemons: [...state.copiaPokemons],
+                    filteredPokemons: [],
                     types_filter: [...arrayTypes],
                 };
             } else if (arrayTypes.length <= 2) {
@@ -146,12 +97,46 @@ const infoReducer = (state = initialState, action) => {
                 types_filter: [...arrayTypes],
             };
 
+        case ORDER_FILTERS:
+            let op = [...state.pokemons]
+            let cp = [...state.copiaPokemons]
+            let fp = [...state.filteredPokemons]
+
+            if (action.payload === "ID") {
+                op.sort((a, b) => (a.id > b.id ? 1 : -1));
+                cp.sort((a, b) => (a.id > b.id ? 1 : -1));
+                fp.sort((a, b) => (a.id > b.id ? 1 : -1));
+            } else if (action.payload === "Ascending (Name)") {
+                op.sort((a, b) => (a.name > b.name ? 1 : -1));
+                cp.sort((a, b) => (a.name > b.name ? 1 : -1));
+                fp.sort((a, b) => (a.name > b.name ? 1 : -1));
+            } else if (action.payload === "Descending (Name)") {
+                op.sort((a, b) => (b.name > a.name ? 1 : -1));
+                cp.sort((a, b) => (b.name > a.name ? 1 : -1));
+                fp.sort((a, b) => (b.name > a.name ? 1 : -1));
+            } else if (action.payload === "By Attack (Low to High)") {
+                op.sort((a, b) => (a.attack > b.attack ? 1 : -1));
+                cp.sort((a, b) => (a.attack > b.attack ? 1 : -1));
+                fp.sort((a, b) => (a.attack > b.attack ? 1 : -1));
+            } else if (action.payload === "By Attack (High to Low)") {
+                op.sort((a, b) => (b.attack > a.attack ? 1 : -1));
+                cp.sort((a, b) => (b.attack > a.attack ? 1 : -1));
+                fp.sort((a, b) => (b.attack > a.attack ? 1 : -1));
+            }
+
+            return {
+                ...state,
+                pokemons: [...op],
+                copiaPokemons: [...cp],
+                filteredPokemons: [...fp],
+            };
+
+
         case CLEAR_FILTERS:
             if (action.payload === "clear") {
                 return {
                     ...state,
-                    copiaPokemons: [...state.pokemons],
-                    filteredPokemons: [...state.pokemons],
+                    filteredPokemons: [],
                     types_filter: [],
                 };
             }

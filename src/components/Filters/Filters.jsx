@@ -17,20 +17,19 @@ const Filters = () => {
     dispatch(getTypesPokemons());
   }, []);
 
-  const [selectedOrigin, setSelectedOrigin] = useState(null);
-  const [selectedTypes, setSelectedTypes] = useState([]);
-  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [selectedOrigin, setSelectedOrigin] = useState("All");
+  const [selectedTypes, setSelectedTypes] = useState(["All"]);
+  const [selectedOrder, setSelectedOrder] = useState("ID");
 
   const handleFilterOrigin = (e) => {
     const filterValue = e.target.value;
-    dispatch(originFilter(filterValue));
-    setSelectedOrigin((prev) => (prev === filterValue ? null : filterValue));
-  };
 
-  const handleFilterOrder = (e) => {
-    const filterValue = e.target.value;
-    setSelectedOrder((prev) => (prev === filterValue ? null : filterValue));
-    dispatch(orderFilter(filterValue));
+    if (filterValue === selectedOrigin) {
+      return;
+    }
+
+    dispatch(originFilter(filterValue));
+    setSelectedOrigin(filterValue);
   };
 
   const handleFilterTypesWithLimit = (filterValue) => {
@@ -51,6 +50,17 @@ const Filters = () => {
     setSelectedTypes(updatedSelectedTypes);
   };
 
+  const handleFilterOrder = (e) => {
+    const filterValue = e.target.value;
+
+    if (filterValue === setSelectedOrder) {
+      return;
+    }
+
+    dispatch(orderFilter(filterValue));
+    setSelectedOrder(filterValue);
+  };
+
   const handleFilterTypes = (e) => {
     const filterValue = e.target.value;
     handleFilterTypesWithLimit(filterValue);
@@ -60,8 +70,8 @@ const Filters = () => {
   const hanldeClearFilter = (e) => {
     dispatch(clearFilter(e.target.value));
     setSelectedTypes([]);
-    setSelectedOrigin(null);
-    setSelectedOrder(null);
+    setSelectedOrigin("All");
+    setSelectedOrder("ID");
   };
 
   return (
@@ -71,7 +81,7 @@ const Filters = () => {
       </div>
       <div className={style.selectedContainer}>
         <div>
-          {["Database", "API"].map((filter) => {
+          {["All", "Database", "API"].map((filter) => {
             return (
               <button
                 onClick={handleFilterOrigin}
@@ -85,6 +95,12 @@ const Filters = () => {
           })}
         </div>
         <div>
+          <button
+            onClick={handleFilterTypes}
+            className={selectedOrigin === "All" ? style.selected : ""}
+          >
+            All
+          </button>
           {typesPokemons.map((filter) => {
             const capitalizedFilter =
               filter.charAt(0).toUpperCase() + filter.slice(1);
@@ -102,6 +118,7 @@ const Filters = () => {
         </div>
         <div>
           {[
+            "ID",
             "Ascending (Name)",
             "Descending (Name)",
             "By Attack (Low to High)",
