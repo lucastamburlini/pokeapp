@@ -1,12 +1,18 @@
+/* eslint-disable react/no-unknown-property */
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 
 import style from "./Detail.module.css";
 
 const Detail = () => {
   const [pokemon, setPokemon] = useState({});
+  const navigate = useNavigate()
   const { id } = useParams();
+
+  const handleBack = () => {
+    navigate('/home')
+  }
 
   useEffect(() => {
     axios
@@ -127,17 +133,24 @@ const Detail = () => {
                 <button disabled={false} className={style.buttonUpdate}>
                   Update
                 </button>
-                <button disabled={false} className={style.buttonDelete}>Delete</button>
+                <button disabled={false} className={style.buttonDelete}>
+                  Delete
+                </button>
               </>
             ) : (
               <>
                 <button disabled={true} className={style.buttonUpdate}>
                   Update
                 </button>
-                <button disabled={true} className={style.buttonDelete}>Delete</button>
+                <button disabled={true} className={style.buttonDelete}>
+                  Delete
+                </button>
               </>
             )}
           </div>
+        </div>
+        <div className={style.buttonReturn}>
+          <button onClick={handleBack}>Return</button>
         </div>
       </div>
     </div>

@@ -150,6 +150,15 @@
   cursor: not-allowed;
 }
 
+.buttonReturn button {
+  background-color: #212121;
+  color: var(--color-text-one);
+  padding: 3px 5px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 20px 0;
+}
 
 @media (max-width: 768px) {
   .detailImg {
