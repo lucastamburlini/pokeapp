@@ -1,18 +1,38 @@
 /* eslint-disable react/no-unknown-property */
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import style from "./Detail.module.css";
 
 const Detail = () => {
   const [pokemon, setPokemon] = useState({});
-  const navigate = useNavigate()
+  const [modal, setModal] = useState(false);
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const handleBack = () => {
-    navigate('/home')
-  }
+    navigate("/home");
+  };
+
+  const deletePokemon = async () => {
+    try {
+      await axios.delete(`http://localhost:3001/pokemons/delete/${id}`);
+      navigate("/home");
+    } catch (error) {
+      console.error("Error al eliminar el Pokémon", error);
+    }
+
+    closeModal();
+  };
+
+  const deleteModal = () => {
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
+  };
 
   useEffect(() => {
     axios
@@ -133,9 +153,22 @@ const Detail = () => {
                 <button disabled={false} className={style.buttonUpdate}>
                   Update
                 </button>
-                <button disabled={false} className={style.buttonDelete}>
+                <button
+                  disabled={false}
+                  onClick={deleteModal}
+                  className={style.buttonDelete}
+                >
                   Delete
                 </button>
+                {modal && (
+                  <div className={style.modalBack}>
+                    <div className={style.modal}>
+                      <p>Are you sure you want to remove this Pokémon?</p>
+                      <button onClick={deletePokemon}>Yes</button>
+                      <button onClick={closeModal}>No</button>
+                    </div>
+                  </div>
+                )}
               </>
             ) : (
               <>
