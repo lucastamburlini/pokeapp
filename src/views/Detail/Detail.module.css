@@ -182,7 +182,7 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  z-index: 99;
   text-align: center;
 }
 
@@ -194,14 +194,10 @@
   margin: 5px;
   padding: 10px 20px;
   border: none;
-  background-color: #007bff;
+  background-color: var(--color-accent);
   color: white;
   border-radius: 4px;
   cursor: pointer;
-}
-
-.modal button:first-child {
-  background-color: #dc3545;
 }
 
 

@@ -81,6 +81,17 @@ const Form = () => {
       .then((response) => {
         setSuccessMessage("Nuevo Pokémon creado: " + response.data.name);
         setErrorMessage(""); //
+        setForm({
+          name: "",
+          image: "",
+          hp: 1,
+          attack: 5,
+          defense: 5,
+          speed: 5,
+          height: 1,
+          weight: 10,
+          types: [],
+        });
       })
       .catch((error) => {
         setErrorMessage("Error al crear el Pokémon: " + error.message);
