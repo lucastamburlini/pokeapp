@@ -17,7 +17,7 @@ const Detail = () => {
 
   const deletePokemon = async () => {
     try {
-      await axios.delete(`http://localhost:3001/pokemons/delete/${id}`);
+      await axios.delete(`/pokemons/delete/${id}`);
       navigate("/home");
     } catch (error) {
       console.error("Error al eliminar el Pokémon", error);
