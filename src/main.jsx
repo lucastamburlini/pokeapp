@@ -8,6 +8,7 @@ import axios from "axios";
 
 // axios.defaults.baseURL = "http://localhost:3001";
 axios.defaults.baseURL = "https://pokeapi-production-e212.up.railway.app";
+//axios.defaults.baseURL = "https://pokeapi-production-e212.up.railway.app";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
