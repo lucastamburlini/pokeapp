@@ -12,7 +12,6 @@ const CardContainer = () => {
   const filteredPokemons = useSelector((state) => state.filteredPokemons);
   const displayPokemons =
     filteredPokemons.length > 0 ? filteredPokemons : pokemons;
-  console.log("La longitud de filteredPokemons es: ", filteredPokemons.length);
 
   const [currentPage, setCurrentPage] = useState(1);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
