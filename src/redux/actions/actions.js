@@ -5,7 +5,7 @@ import { ADD_ALL_POKEMONS, SEARCH_POKEMON, TYPES_POKEMONS, ORIGIN_FILTERS, ORDER
 export const getPokemons = () => {
     return async (dispatch) => {
         try {
-            const response = await axios.get("/pokemons/")
+            const response = await axios.get("https://pokeapi-production-e212.up.railway.app/pokemons/")
             const { data } = response
             dispatch({
                 type: ADD_ALL_POKEMONS,
@@ -20,7 +20,7 @@ export const getPokemons = () => {
 export const searchPokemon = (name) => {
     return async (dispatch) => {
         try {
-            const response = await axios.get(`/pokemons?name=${name}`)
+            const response = await axios.get(`https://pokeapi-production-e212.up.railway.app/pokemons?name=${name}`)
             const { data } = response;
             dispatch({
                 type: SEARCH_POKEMON,
@@ -48,7 +48,7 @@ export const restorePokemon = (value) => {
 export const getTypesPokemons = () => {
     return async (dispatch) => {
         try {
-            const response = await axios("/types/")
+            const response = await axios("https://pokeapi-production-e212.up.railway.app/types/")
             const { data } = response
             dispatch({
                 type: TYPES_POKEMONS,
