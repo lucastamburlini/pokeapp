@@ -119,12 +119,13 @@ const infoReducer = (state = initialState, action) => {
             };
 
 
-            case CLEAR_FILTERS:
-                return {
-                    ...state,
-                    filteredPokemons: [],
-                    types_filter: ["All"], 
-                };
+        case CLEAR_FILTERS:
+            return {
+                ...state,
+                filteredPokemons: [],
+                copiaPokemons: [...state.pokemons],
+                types_filter: ["All"],
+            };
 
 
         default:
