@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   clearFilter,
   getTypesPokemons,
@@ -13,34 +13,28 @@ import style from "./Filters.module.css";
 const Filters = () => {
   const dispatch = useDispatch();
   const typesPokemons = useSelector((state) => state.typesPokemons);
+  const filters = useSelector((state) => state.filters);
   useEffect(() => {
     dispatch(getTypesPokemons());
   }, []);
 
-  const [selectedOrigin, setSelectedOrigin] = useState("All");
-  const [selectedTypes, setSelectedTypes] = useState(["all"]);
-  const [selectedOrder, setSelectedOrder] = useState("ID");
 
   const handleFilterOrigin = (e) => {
     const filterValue = e.target.value;
-
-    if (filterValue === selectedOrigin) {
+    if (filterValue === filters.selectedOrigin) {
       return;
     }
 
     dispatch(originFilter(filterValue));
-    setSelectedOrigin(filterValue);
   };
 
   const handleFilterOrder = (e) => {
     const filterValue = e.target.value;
-
-    if (filterValue === selectedOrder) {
+    if (filterValue === filters.selectedOrder) {
       return;
     }
 
     dispatch(orderFilter(filterValue));
-    setSelectedOrder(filterValue);
   };
 
   const handleFilterTypes = (e) => {
@@ -50,16 +44,16 @@ const Filters = () => {
     if (filterValue === "all") {
       type.push("all");
     } else {
-      if (selectedTypes.includes("all")) {
+      if (filters.selectedTypes.includes("all")) {
         type.push(filterValue);
       } else {
-        if (selectedTypes.length === 2) {
+        if (filters.selectedTypes.length === 2) {
           type.push(filterValue);
         } else {
-          if (selectedTypes.includes(filterValue)) {
-            type = selectedTypes.filter((type) => type !== filterValue);
+          if (filters.selectedTypes.includes(filterValue)) {
+            type = filters.selectedTypes.filter((type) => type !== filterValue);
           } else {
-            type = [...selectedTypes, filterValue];
+            type = [...filters.selectedTypes, filterValue];
           }
         }
       }
@@ -68,18 +62,11 @@ const Filters = () => {
     if (type.length === 0) {
       type = ["all"];
     }
-
-    setSelectedTypes(type);
     dispatch(typeFilter(type));
   };
 
   const handleClearFilter = () => {
-    setSelectedOrigin("All");
-    setSelectedTypes(["all"]);
-    setSelectedOrder("ID");
-
     dispatch(clearFilter());
-
   };
 
   return (
@@ -95,7 +82,7 @@ const Filters = () => {
                 onClick={handleFilterOrigin}
                 key={filter}
                 value={filter}
-                className={selectedOrigin === filter ? style.selected : ""}
+                className={filters.selectedOrigin === filter ? style.selected : ""}
               >
                 {filter}
               </button>
@@ -111,7 +98,7 @@ const Filters = () => {
                 onClick={handleFilterTypes}
                 key={capitalizedFilter}
                 value={filter}
-                className={selectedTypes.includes(filter) ? style.selected : ""}
+                className={filters.selectedTypes.includes(filter) ? style.selected : ""}
               >
                 {capitalizedFilter}
               </button>
@@ -131,7 +118,7 @@ const Filters = () => {
                 onClick={handleFilterOrder}
                 key={filter}
                 value={filter}
-                className={selectedOrder === filter ? style.selected : ""}
+                className={filters.selectedOrder === filter ? style.selected : ""}
               >
                 {filter}
               </button>
