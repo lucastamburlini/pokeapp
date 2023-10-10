@@ -77,7 +77,7 @@ const Form = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:3001/pokemons/pokemons", form)
+      .post("/pokemons/pokemons", form)
       .then((response) => {
         setSuccessMessage("Nuevo Pokémon creado: " + response.data.name);
         setErrorMessage(""); //
