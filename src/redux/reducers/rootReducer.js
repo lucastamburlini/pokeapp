@@ -90,23 +90,23 @@ const infoReducer = (state = initialState, action) => {
             let fp = [...state.filteredPokemons]
 
             if (action.payload === "ID") {
-                op.sort((a, b) => (a.id > b.id ? 1 : -1));
+                // op.sort((a, b) => (a.id > b.id ? 1 : -1));
                 cp.sort((a, b) => (a.id > b.id ? 1 : -1));
                 fp.sort((a, b) => (a.id > b.id ? 1 : -1));
             } else if (action.payload === "Ascending (Name)") {
-                op.sort((a, b) => (a.name > b.name ? 1 : -1));
+                //  op.sort((a, b) => (a.name > b.name ? 1 : -1));
                 cp.sort((a, b) => (a.name > b.name ? 1 : -1));
                 fp.sort((a, b) => (a.name > b.name ? 1 : -1));
             } else if (action.payload === "Descending (Name)") {
-                op.sort((a, b) => (b.name > a.name ? 1 : -1));
+                // op.sort((a, b) => (b.name > a.name ? 1 : -1));
                 cp.sort((a, b) => (b.name > a.name ? 1 : -1));
                 fp.sort((a, b) => (b.name > a.name ? 1 : -1));
             } else if (action.payload === "By Attack (Low to High)") {
-                op.sort((a, b) => (a.attack > b.attack ? 1 : -1));
+                //  op.sort((a, b) => (a.attack > b.attack ? 1 : -1));
                 cp.sort((a, b) => (a.attack > b.attack ? 1 : -1));
                 fp.sort((a, b) => (a.attack > b.attack ? 1 : -1));
             } else if (action.payload === "By Attack (High to Low)") {
-                op.sort((a, b) => (b.attack > a.attack ? 1 : -1));
+                // op.sort((a, b) => (b.attack > a.attack ? 1 : -1));
                 cp.sort((a, b) => (b.attack > a.attack ? 1 : -1));
                 fp.sort((a, b) => (b.attack > a.attack ? 1 : -1));
             }
