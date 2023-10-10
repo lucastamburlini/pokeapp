@@ -123,7 +123,6 @@ const infoReducer = (state = initialState, action) => {
             return {
                 ...state,
                 filteredPokemons: [],
-                copiaPokemons: [...state.pokemons],
                 types_filter: ["All"],
             };
 
