@@ -36,7 +36,7 @@ const Detail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/pokemons/${id}`)
+      .get(`/pokemons/${id}`)
       .then((response) => {
         const data = response.data;
         setPokemon(data);
