@@ -38,7 +38,7 @@ const infoReducer = (state = initialState, action) => {
 
 
         case ORIGIN_FILTERS:
-            let origin = [...state.pokemons]
+            let origin = [...state.copiaPokemons]
             if (action.payload === "All") {
                 return {
                     ...state,
@@ -63,7 +63,7 @@ const infoReducer = (state = initialState, action) => {
             const newType = action.payload;
 
 
-            let filter = [...state.pokemons];
+            let filter = [...state.copiaPokemons];
 
             if (newType.length === "All") {
                 return {
@@ -102,11 +102,11 @@ const infoReducer = (state = initialState, action) => {
                 cp.sort((a, b) => (b.name > a.name ? 1 : -1));
                 fp.sort((a, b) => (b.name > a.name ? 1 : -1));
             } else if (action.payload === "By Attack (Low to High)") {
-                //  op.sort((a, b) => (a.attack > b.attack ? 1 : -1));
+                // op.sort((a, b) => (a.attack > b.attack ? 1 : -1));
                 cp.sort((a, b) => (a.attack > b.attack ? 1 : -1));
                 fp.sort((a, b) => (a.attack > b.attack ? 1 : -1));
             } else if (action.payload === "By Attack (High to Low)") {
-                // op.sort((a, b) => (b.attack > a.attack ? 1 : -1));
+                //op.sort((a, b) => (b.attack > a.attack ? 1 : -1));
                 cp.sort((a, b) => (b.attack > a.attack ? 1 : -1));
                 fp.sort((a, b) => (b.attack > a.attack ? 1 : -1));
             }
@@ -122,6 +122,7 @@ const infoReducer = (state = initialState, action) => {
         case CLEAR_FILTERS:
             return {
                 ...state,
+                copiaPokemons: [...state.pokemons],
                 filteredPokemons: [],
                 types_filter: ["All"],
             };

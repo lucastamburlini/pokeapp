@@ -8,7 +8,7 @@ const ITEMS_PER_PAGE = 12;
 const MAX_PAGES_DISPLAYED = 5;
 
 const CardContainer = () => {
-  const pokemons = useSelector((state) => state.pokemons);
+  const pokemons = useSelector((state) => state.copiaPokemons);
   const filteredPokemons = useSelector((state) => state.filteredPokemons);
   const displayPokemons =
     filteredPokemons.length > 0 ? filteredPokemons : pokemons;
