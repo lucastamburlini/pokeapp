@@ -1,12 +1,13 @@
 /* eslint-disable react/no-unknown-property */
 import style from "./Footer.module.css";
+import imgSource from "../../assets/pikachu.png";
 
 const Footer = () => {
   return (
     <footer className={style.footerContainer}>
       <div className={style.footerInner}>
         <div className={style.footerImg}>
-          <img src={"./src/assets/pikachu.png"} alt="pokeball" />
+          <img src={imgSource} alt="pokeball" />
         </div>
         <div className={style.footerInfo}>
           <div className={style.item}>
