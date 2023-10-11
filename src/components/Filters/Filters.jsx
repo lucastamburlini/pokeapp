@@ -14,10 +14,10 @@ const Filters = () => {
   const dispatch = useDispatch();
   const typesPokemons = useSelector((state) => state.typesPokemons);
   const filters = useSelector((state) => state.filters);
+
   useEffect(() => {
     dispatch(getTypesPokemons());
   }, []);
-
 
   const handleFilterOrigin = (e) => {
     const filterValue = e.target.value;
