@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTypesPokemons } from "../../redux/actions/actions";
+import { getPokemons, getTypesPokemons } from "../../redux/actions/actions";
 import axios from "axios";
 import { validation } from "../../helpers/validation";
 
@@ -92,6 +92,8 @@ const Form = () => {
           weight: 10,
           types: [],
         });
+
+        dispatch(getPokemons())
       })
       .catch((error) => {
         setErrorMessage("Error al crear el Pokémon: " + error.message);

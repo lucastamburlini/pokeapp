@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import style from "./Detail.module.css";
+import { getPokemons } from "../../redux/actions/actions";
+import { useDispatch } from "react-redux";
 
 const Detail = () => {
   const [pokemon, setPokemon] = useState({});
   const [modal, setModal] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { id } = useParams();
 
   const handleBack = () => {
@@ -25,6 +28,10 @@ const Detail = () => {
 
     closeModal();
   };
+
+  useEffect(() => {
+    dispatch(getPokemons());
+  }, [deletePokemon]);
 
   const deleteModal = () => {
     setModal(true);
