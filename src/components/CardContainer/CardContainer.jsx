@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import Card from "../Card/Card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import style from "./CardContainer.module.css";
 
@@ -45,6 +45,10 @@ const CardContainer = () => {
     if (currentPage === 0) return;
     setCurrentPage(currentPage - 1);
   };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredPokemons]);
 
   return (
     <div>

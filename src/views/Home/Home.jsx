@@ -4,6 +4,7 @@ import { getPokemons } from "../../redux/actions/actions";
 import CardContainer from "../../components/CardContainer/CardContainer";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Filters from "../../components/Filters/Filters";
+import Footer from "../../components/Footer/Footer";
 
 import style from "./Home.module.css";
 
@@ -18,11 +19,14 @@ const Home = () => {
   }, [dispatch, pokemons]);
 
   return (
-    <div className={style.homeContainer}>
-      <SearchBar />
-      <Filters />
-      <CardContainer />
-    </div>
+    <>
+      <div className={style.homeContainer}>
+        <SearchBar />
+        <Filters />
+        <CardContainer />
+      </div>
+      <Footer />
+    </>
   );
 };
 
