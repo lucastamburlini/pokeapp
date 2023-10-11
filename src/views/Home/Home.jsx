@@ -12,7 +12,6 @@ const Home = () => {
   const pokemons = useSelector((state) => state.pokemons);
 
   useEffect(() => {
-    // Verificar si ya se han cargado los datos de los pokemones antes de hacer una nueva solicitud.
     if (pokemons.length === 0) {
       dispatch(getPokemons());
     }
