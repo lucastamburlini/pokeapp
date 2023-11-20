@@ -1,6 +1,16 @@
 .homeContainer {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    width: 90%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.loaderContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  min-height: 70vh;
 }
