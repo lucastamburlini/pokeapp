@@ -44,6 +44,6 @@ a {
   text-decoration: none;
 }
 
-.mySwal {
-  font-family: var(--font-family);
+:global .mySwal {
+	font-family: var(--font-primary);
 }
